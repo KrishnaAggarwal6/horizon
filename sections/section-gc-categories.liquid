@@ -1,0 +1,294 @@
+<section id="gc-categories-{{ section.id }}" class="gc-categories">
+  <div class="gc-categories__container">
+    <div class="gc-categories__header">
+      <p class="gc-categories__eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="gc-categories__title">{{ section.settings.title }}</h2>
+      {% if section.settings.subtitle != blank %}
+        <p class="gc-categories__subtitle">{{ section.settings.subtitle }}</p>
+      {% endif %}
+    </div>
+
+    <div class="gc-categories__grid">
+      {% for block in section.blocks %}
+        <a
+          href="{{ block.settings.link | default: '/collections/all' }}"
+          class="gc-cat-card"
+          {{ block.shopify_attributes }}
+          aria-label="{{ block.settings.name }}"
+        >
+          <div class="gc-cat-card__media">
+            {% if block.settings.image != blank %}
+              {{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', alt: block.settings.name, class: 'gc-cat-card__image' }}
+            {% else %}
+              <div class="gc-cat-card__placeholder" style="background: {{ block.settings.bg_color | default: '#1a1a2e' }};">
+                <span class="gc-cat-card__emoji">{{ block.settings.emoji | default: '💌' }}</span>
+              </div>
+            {% endif %}
+            <div class="gc-cat-card__overlay"></div>
+          </div>
+          <div class="gc-cat-card__content">
+            <span class="gc-cat-card__emoji-badge">{{ block.settings.emoji | default: '💌' }}</span>
+            <p class="gc-cat-card__name">{{ block.settings.name }}</p>
+            <span class="gc-cat-card__count">{{ block.settings.count | default: '12' }} cards →</span>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .gc-categories {
+    background: #ffffff;
+    padding: 80px 32px;
+  }
+
+  .gc-categories__container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .gc-categories__header {
+    text-align: center;
+    margin-bottom: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .gc-categories__eyebrow {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #e94560;
+  }
+
+  .gc-categories__title {
+    margin: 0;
+    font-size: clamp(26px, 3vw, 40px);
+    font-weight: 700;
+    color: #1a1a2e;
+    letter-spacing: -0.02em;
+  }
+
+  .gc-categories__subtitle {
+    margin: 0;
+    font-size: 17px;
+    color: #6b7280;
+    max-width: 500px;
+  }
+
+  .gc-categories__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .gc-cat-card {
+    position: relative;
+    display: block;
+    border-radius: 20px;
+    overflow: hidden;
+    text-decoration: none;
+    aspect-ratio: 4/3;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .gc-cat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 60px rgba(26, 26, 46, 0.15);
+  }
+
+  .gc-cat-card__media {
+    position: absolute;
+    inset: 0;
+  }
+
+  .gc-cat-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .gc-cat-card:hover .gc-cat-card__image {
+    transform: scale(1.07);
+  }
+
+  .gc-cat-card__placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .gc-cat-card__placeholder .gc-cat-card__emoji {
+    font-size: 48px;
+    opacity: 0.3;
+  }
+
+  .gc-cat-card__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(26, 26, 46, 0.85) 0%,
+      rgba(26, 26, 46, 0.3) 50%,
+      rgba(26, 26, 46, 0.05) 100%
+    );
+    transition: background 0.3s ease;
+  }
+
+  .gc-cat-card:hover .gc-cat-card__overlay {
+    background: linear-gradient(
+      to top,
+      rgba(26, 26, 46, 0.9) 0%,
+      rgba(26, 26, 46, 0.4) 50%,
+      rgba(26, 26, 46, 0.1) 100%
+    );
+  }
+
+  .gc-cat-card__content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .gc-cat-card__emoji-badge {
+    font-size: 24px;
+    margin-bottom: 4px;
+  }
+
+  .gc-cat-card__name {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.2;
+  }
+
+  .gc-cat-card__count {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .gc-cat-card:hover .gc-cat-card__count {
+    color: #e94560;
+  }
+
+  @media (max-width: 900px) {
+    .gc-categories__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .gc-categories {
+      padding: 56px 20px;
+    }
+
+    .gc-categories__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .gc-cat-card__name {
+      font-size: 16px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "GC – Categories",
+  "tag": "section",
+  "class": "gc-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Browse by Occasion"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Find the Perfect Card"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Every occasion deserves something beautiful"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Background Image"
+        },
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Fallback Background Color",
+          "default": "#1a1a2e"
+        },
+        {
+          "type": "text",
+          "id": "emoji",
+          "label": "Emoji",
+          "default": "🎂"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Category Name",
+          "default": "Birthday"
+        },
+        {
+          "type": "text",
+          "id": "count",
+          "label": "Card Count",
+          "default": "24"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "GC – Categories",
+      "blocks": [
+        { "type": "category", "settings": { "emoji": "🎂", "name": "Birthday", "count": "24", "bg_color": "#2d1b4e" } },
+        { "type": "category", "settings": { "emoji": "🙏", "name": "Thank You", "count": "18", "bg_color": "#1a2e2e" } },
+        { "type": "category", "settings": { "emoji": "🎉", "name": "Congratulations", "count": "15", "bg_color": "#2e1a1a" } },
+        { "type": "category", "settings": { "emoji": "💑", "name": "Anniversary", "count": "12", "bg_color": "#1a1a4e" } },
+        { "type": "category", "settings": { "emoji": "💝", "name": "Just Because", "count": "20", "bg_color": "#2e1a2e" } },
+        { "type": "category", "settings": { "emoji": "🎄", "name": "Holiday", "count": "30", "bg_color": "#1a2e1a" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

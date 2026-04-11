@@ -1,0 +1,620 @@
+<section id="gc-pricing-{{ section.id }}" class="gc-pricing">
+  <div class="gc-pricing__container">
+    <div class="gc-pricing__header">
+      <p class="gc-pricing__eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="gc-pricing__title">{{ section.settings.title }}</h2>
+      <p class="gc-pricing__subtitle">{{ section.settings.subtitle }}</p>
+    </div>
+
+    <!-- Billing toggle -->
+    <div class="gc-pricing__toggle-wrap">
+      <span class="gc-pricing__period gc-pricing__period--monthly is-active">Monthly</span>
+      <label class="gc-pricing__toggle-label" aria-label="Switch to yearly billing">
+        <input type="checkbox" class="gc-pricing__toggle-input" aria-checked="false" role="switch">
+        <span class="gc-pricing__toggle-track">
+          <span class="gc-pricing__toggle-thumb"></span>
+        </span>
+      </label>
+      <span class="gc-pricing__period gc-pricing__period--yearly">
+        Yearly
+        <span class="gc-pricing__toggle-badge">Save 20%</span>
+      </span>
+    </div>
+
+    <!-- Plans grid -->
+    <div class="gc-pricing__grid">
+      {% for block in section.blocks %}
+        <div
+          class="gc-pricing__card{% if block.settings.highlighted %} gc-pricing__card--featured{% endif %}"
+          {{ block.shopify_attributes }}
+        >
+          {% if block.settings.highlighted %}
+            <div class="gc-pricing__card-badge">Most Popular</div>
+          {% endif %}
+
+          <div class="gc-pricing__card-header">
+            <p class="gc-pricing__plan-name">{{ block.settings.plan_name }}</p>
+            <p class="gc-pricing__plan-tagline">{{ block.settings.tagline }}</p>
+          </div>
+
+          <div class="gc-pricing__price-wrap">
+            <div data-monthly>
+              <div class="gc-pricing__price">
+                <span class="gc-pricing__currency">{{ block.settings.currency | default: '$' }}</span>
+                <span class="gc-pricing__amount">{{ block.settings.price_monthly }}</span>
+                {% if block.settings.price_monthly != '0' %}
+                  <span class="gc-pricing__period-label">/mo</span>
+                {% endif %}
+              </div>
+            </div>
+            <div data-yearly style="display:none;">
+              <div class="gc-pricing__price">
+                <span class="gc-pricing__currency">{{ block.settings.currency | default: '$' }}</span>
+                <span class="gc-pricing__amount">{{ block.settings.price_yearly }}</span>
+                {% if block.settings.price_yearly != '0' %}
+                  <span class="gc-pricing__period-label">/mo</span>
+                {% endif %}
+              </div>
+              {% if block.settings.yearly_note != blank %}
+                <p class="gc-pricing__yearly-note">{{ block.settings.yearly_note }}</p>
+              {% endif %}
+            </div>
+          </div>
+
+          <a
+            href="{{ block.settings.cta_url | default: '#' }}"
+            class="gc-pricing__cta{% if block.settings.highlighted %} gc-pricing__cta--featured{% endif %}"
+          >
+            {{ block.settings.cta_label | default: 'Get Started' }}
+          </a>
+
+          <ul class="gc-pricing__features">
+            {% assign features = block.settings.features | split: '|' %}
+            {% for feature in features %}
+              {% assign parts = feature | split: ':' %}
+              {% assign available = parts[0] | strip %}
+              {% assign text = parts[1] | strip %}
+              <li class="gc-pricing__feature{% if available == '0' %} gc-pricing__feature--unavailable{% endif %}">
+                {% if available == '0' %}
+                  <span class="gc-pricing__feature-icon gc-pricing__feature-icon--no" aria-hidden="true">✕</span>
+                {% else %}
+                  <span class="gc-pricing__feature-icon" aria-hidden="true">✓</span>
+                {% endif %}
+                <span>{{ text }}</span>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if section.settings.note != blank %}
+      <p class="gc-pricing__note">{{ section.settings.note }}</p>
+    {% endif %}
+  </div>
+</section>
+
+{% stylesheet %}
+  .gc-pricing {
+    background: #f5f5f7;
+    padding: 88px 32px;
+  }
+
+  .gc-pricing__container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .gc-pricing__header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .gc-pricing__eyebrow {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #e94560;
+  }
+
+  .gc-pricing__title {
+    margin: 0;
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 700;
+    color: #1a1a2e;
+    letter-spacing: -0.02em;
+  }
+
+  .gc-pricing__subtitle {
+    margin: 0;
+    font-size: 17px;
+    color: #6b7280;
+    max-width: 440px;
+  }
+
+  /* Toggle */
+  .gc-pricing__toggle-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .gc-pricing__period {
+    font-size: 14px;
+    font-weight: 600;
+    color: #9ca3af;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .gc-pricing__period.is-active {
+    color: #1a1a2e;
+  }
+
+  .gc-pricing__toggle-badge {
+    background: rgba(233, 69, 96, 0.1);
+    color: #e94560;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 50px;
+    letter-spacing: 0.3px;
+  }
+
+  .gc-pricing__toggle-label {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .gc-pricing__toggle-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .gc-pricing__toggle-track {
+    display: block;
+    width: 48px;
+    height: 26px;
+    background: #d0d0e0;
+    border-radius: 50px;
+    position: relative;
+    transition: background 0.25s;
+  }
+
+  .gc-pricing__toggle-input:checked + .gc-pricing__toggle-track {
+    background: #e94560;
+  }
+
+  .gc-pricing__toggle-thumb {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    transition: transform 0.25s;
+  }
+
+  .gc-pricing__toggle-input:checked + .gc-pricing__toggle-track .gc-pricing__toggle-thumb {
+    transform: translateX(22px);
+  }
+
+  /* Plans grid */
+  .gc-pricing__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    width: 100%;
+    align-items: start;
+  }
+
+  .gc-pricing__card {
+    background: #ffffff;
+    border: 1.5px solid #e8e8f0;
+    border-radius: 24px;
+    padding: 36px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: relative;
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+
+  .gc-pricing__card:hover {
+    box-shadow: 0 16px 48px rgba(26, 26, 46, 0.08);
+    transform: translateY(-2px);
+  }
+
+  .gc-pricing__card--featured {
+    background: #1a1a2e;
+    border-color: #1a1a2e;
+    transform: scale(1.04);
+    box-shadow: 0 24px 80px rgba(26, 26, 46, 0.25);
+  }
+
+  .gc-pricing__card--featured:hover {
+    transform: scale(1.04) translateY(-2px);
+    box-shadow: 0 32px 96px rgba(26, 26, 46, 0.3);
+  }
+
+  .gc-pricing__card-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #e94560;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 50px;
+    white-space: nowrap;
+  }
+
+  .gc-pricing__card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .gc-pricing__plan-name {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 800;
+    color: #1a1a2e;
+    letter-spacing: -0.01em;
+  }
+
+  .gc-pricing__card--featured .gc-pricing__plan-name {
+    color: #ffffff;
+  }
+
+  .gc-pricing__plan-tagline {
+    margin: 0;
+    font-size: 13px;
+    color: #6b7280;
+  }
+
+  .gc-pricing__card--featured .gc-pricing__plan-tagline {
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  .gc-pricing__price-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .gc-pricing__price {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+  }
+
+  .gc-pricing__currency {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a2e;
+    align-self: flex-start;
+    margin-top: 6px;
+  }
+
+  .gc-pricing__card--featured .gc-pricing__currency {
+    color: #ffffff;
+  }
+
+  .gc-pricing__amount {
+    font-size: 52px;
+    font-weight: 800;
+    color: #1a1a2e;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .gc-pricing__card--featured .gc-pricing__amount {
+    color: #ffffff;
+  }
+
+  .gc-pricing__period-label {
+    font-size: 14px;
+    color: #9ca3af;
+    font-weight: 500;
+    margin-left: 2px;
+  }
+
+  .gc-pricing__card--featured .gc-pricing__period-label {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .gc-pricing__yearly-note {
+    margin: 4px 0 0;
+    font-size: 12px;
+    color: #9ca3af;
+  }
+
+  .gc-pricing__card--featured .gc-pricing__yearly-note {
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  .gc-pricing__cta {
+    display: block;
+    text-align: center;
+    background: #f5f5f7;
+    color: #1a1a2e;
+    border-radius: 12px;
+    padding: 13px 24px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    border: 1.5px solid transparent;
+  }
+
+  .gc-pricing__cta:hover {
+    background: #1a1a2e;
+    color: #ffffff;
+  }
+
+  .gc-pricing__cta--featured {
+    background: #e94560;
+    color: #ffffff;
+    box-shadow: 0 8px 24px rgba(233, 69, 96, 0.35);
+  }
+
+  .gc-pricing__cta--featured:hover {
+    background: #d63555;
+    box-shadow: 0 12px 32px rgba(233, 69, 96, 0.5);
+  }
+
+  .gc-pricing__features {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-top: 1px solid rgba(26, 26, 46, 0.06);
+    padding-top: 20px;
+  }
+
+  .gc-pricing__card--featured .gc-pricing__features {
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .gc-pricing__feature {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #1a1a2e;
+    font-weight: 500;
+  }
+
+  .gc-pricing__card--featured .gc-pricing__feature {
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  .gc-pricing__feature--unavailable {
+    opacity: 0.4;
+  }
+
+  .gc-pricing__feature-icon {
+    width: 18px;
+    height: 18px;
+    background: rgba(233, 69, 96, 0.12);
+    color: #e94560;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  .gc-pricing__feature-icon--no {
+    background: rgba(26, 26, 46, 0.06);
+    color: #9ca3af;
+  }
+
+  .gc-pricing__card--featured .gc-pricing__feature-icon {
+    background: rgba(233, 69, 96, 0.2);
+  }
+
+  .gc-pricing__note {
+    margin: 0;
+    font-size: 13px;
+    color: #9ca3af;
+    text-align: center;
+  }
+
+  @media (max-width: 900px) {
+    .gc-pricing__grid {
+      grid-template-columns: 1fr;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    .gc-pricing__card--featured {
+      transform: none;
+    }
+
+    .gc-pricing__card--featured:hover {
+      transform: translateY(-2px);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .gc-pricing {
+      padding: 60px 20px;
+    }
+
+    .gc-pricing__card {
+      padding: 28px 24px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "GC – Pricing",
+  "tag": "section",
+  "class": "gc-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Transparent Pricing"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Simple Pricing"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Start free, upgrade when you're ready"
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Footer Note",
+      "default": "All plans include unlimited replays for recipients. Cancel anytime."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "plan",
+      "name": "Pricing Plan",
+      "settings": [
+        {
+          "type": "text",
+          "id": "plan_name",
+          "label": "Plan Name",
+          "default": "Free"
+        },
+        {
+          "type": "text",
+          "id": "tagline",
+          "label": "Tagline",
+          "default": "Perfect for getting started"
+        },
+        {
+          "type": "text",
+          "id": "currency",
+          "label": "Currency Symbol",
+          "default": "$"
+        },
+        {
+          "type": "text",
+          "id": "price_monthly",
+          "label": "Monthly Price",
+          "default": "0"
+        },
+        {
+          "type": "text",
+          "id": "price_yearly",
+          "label": "Yearly Price (per month)",
+          "default": "0"
+        },
+        {
+          "type": "text",
+          "id": "yearly_note",
+          "label": "Yearly Note",
+          "default": "Billed annually"
+        },
+        {
+          "type": "text",
+          "id": "cta_label",
+          "label": "CTA Button Label",
+          "default": "Get Started Free"
+        },
+        {
+          "type": "url",
+          "id": "cta_url",
+          "label": "CTA URL"
+        },
+        {
+          "type": "checkbox",
+          "id": "highlighted",
+          "label": "Highlight as featured",
+          "default": false
+        },
+        {
+          "type": "textarea",
+          "id": "features",
+          "label": "Features (format: 1:Feature text|0:Unavailable feature)",
+          "default": "1:3 cards per month|1:Basic templates|0:Remove watermark|0:Priority delivery|0:Custom branding"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "GC – Pricing",
+      "blocks": [
+        {
+          "type": "plan",
+          "settings": {
+            "plan_name": "Free",
+            "tagline": "Try it with no commitment",
+            "price_monthly": "0",
+            "price_yearly": "0",
+            "cta_label": "Start for Free",
+            "highlighted": false,
+            "features": "1:3 cards per month|1:12 basic templates|1:Shareable link|0:Remove watermark|0:Priority delivery|0:Custom branding"
+          }
+        },
+        {
+          "type": "plan",
+          "settings": {
+            "plan_name": "Pro",
+            "tagline": "For regular senders",
+            "price_monthly": "9.99",
+            "price_yearly": "7.99",
+            "yearly_note": "Billed $95.88/year",
+            "cta_label": "Start Pro Trial",
+            "highlighted": true,
+            "features": "1:Unlimited cards|1:All 200+ templates|1:Remove watermark|1:Priority delivery|1:Scheduled sending|0:Custom branding"
+          }
+        },
+        {
+          "type": "plan",
+          "settings": {
+            "plan_name": "Business",
+            "tagline": "For teams & brands",
+            "price_monthly": "29.99",
+            "price_yearly": "23.99",
+            "yearly_note": "Billed $287.88/year",
+            "cta_label": "Contact Sales",
+            "highlighted": false,
+            "features": "1:Everything in Pro|1:Custom branding|1:Team access (5 seats)|1:Analytics dashboard|1:API access|1:Dedicated support"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,299 @@
+<section id="gc-testimonials-{{ section.id }}" class="gc-testimonials">
+  <div class="gc-testimonials__container">
+    <div class="gc-testimonials__header">
+      <p class="gc-testimonials__eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="gc-testimonials__title">{{ section.settings.title }}</h2>
+    </div>
+
+    <div class="gc-testimonials__grid">
+      {% for block in section.blocks %}
+        <figure class="gc-testimonial" {{ block.shopify_attributes }}>
+          <div class="gc-testimonial__stars" aria-label="{{ block.settings.rating }} out of 5 stars">
+            {% for i in (1..5) %}
+              <svg
+                width="16" height="16" viewBox="0 0 16 16"
+                fill="{% if forloop.index <= block.settings.rating %}#e94560{% else %}#e0e0ea{% endif %}"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path d="M8 1l1.854 3.756L14 5.528l-3 2.926.708 4.131L8 10.5l-3.708 2.085L5 8.454 2 5.528l4.146-.772L8 1z"/>
+              </svg>
+            {% endfor %}
+          </div>
+
+          <blockquote class="gc-testimonial__quote">
+            <p>"{{ block.settings.quote }}"</p>
+          </blockquote>
+
+          <figcaption class="gc-testimonial__author">
+            {% if block.settings.photo != blank %}
+              {{ block.settings.photo | image_url: width: 80 | image_tag: loading: 'lazy', alt: block.settings.name, class: 'gc-testimonial__photo' }}
+            {% else %}
+              <div class="gc-testimonial__avatar" style="background: {{ block.settings.avatar_color | default: '#1a1a2e' }};">
+                {{ block.settings.name | slice: 0 }}
+              </div>
+            {% endif %}
+            <div class="gc-testimonial__meta">
+              <span class="gc-testimonial__name">{{ block.settings.name }}</span>
+              {% if block.settings.title != blank %}
+                <span class="gc-testimonial__role">{{ block.settings.title }}</span>
+              {% endif %}
+            </div>
+          </figcaption>
+        </figure>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .gc-testimonials {
+    background: #ffffff;
+    padding: 88px 32px;
+  }
+
+  .gc-testimonials__container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+  }
+
+  .gc-testimonials__header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .gc-testimonials__eyebrow {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #e94560;
+  }
+
+  .gc-testimonials__title {
+    margin: 0;
+    font-size: clamp(26px, 3vw, 40px);
+    font-weight: 700;
+    color: #1a1a2e;
+    letter-spacing: -0.02em;
+  }
+
+  .gc-testimonials__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .gc-testimonial {
+    margin: 0;
+    background: #f9f9fb;
+    border: 1px solid #ebebf0;
+    border-radius: 20px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+
+  .gc-testimonial:hover {
+    box-shadow: 0 16px 48px rgba(26, 26, 46, 0.08);
+    transform: translateY(-4px);
+  }
+
+  .gc-testimonial__stars {
+    display: flex;
+    gap: 3px;
+  }
+
+  .gc-testimonial__quote {
+    flex: 1;
+    margin: 0;
+  }
+
+  .gc-testimonial__quote p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #1a1a2e;
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  .gc-testimonial__author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 16px;
+    border-top: 1px solid #ebebf0;
+  }
+
+  .gc-testimonial__photo {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .gc-testimonial__avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    flex-shrink: 0;
+  }
+
+  .gc-testimonial__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .gc-testimonial__name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a1a2e;
+  }
+
+  .gc-testimonial__role {
+    font-size: 12px;
+    color: #9ca3af;
+    font-weight: 400;
+  }
+
+  @media (max-width: 900px) {
+    .gc-testimonials__grid {
+      grid-template-columns: 1fr;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .gc-testimonials {
+      padding: 60px 20px;
+    }
+
+    .gc-testimonial {
+      padding: 24px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "GC – Testimonials",
+  "tag": "section",
+  "class": "gc-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Loved by Thousands"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "People Love Sending Cards"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Star Rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote",
+          "default": "I sent an animated birthday card to my mom and she cried happy tears. More personal than any physical card I've ever sent."
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Author Name",
+          "default": "Emily R."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Author Title/Role",
+          "default": "Pro Plan Member"
+        },
+        {
+          "type": "image_picker",
+          "id": "photo",
+          "label": "Author Photo"
+        },
+        {
+          "type": "color",
+          "id": "avatar_color",
+          "label": "Avatar Color",
+          "default": "#e94560"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "GC – Testimonials",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "I sent an animated birthday card to my mom and she cried happy tears. More personal than any physical card I've ever sent.",
+            "name": "Emily R.",
+            "title": "Pro Plan Member",
+            "avatar_color": "#e94560"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "We use this for our entire team's work anniversaries. Clients and employees absolutely love receiving them. Feels so premium.",
+            "name": "Marcus T.",
+            "title": "Business Plan · HR Director",
+            "avatar_color": "#1a1a2e"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "Forgot my best friend's birthday until an hour before midnight. Sent one of these in 2 minutes and she thought I planned it all week.",
+            "name": "Priya K.",
+            "title": "Free Plan Member",
+            "avatar_color": "#7c3aed"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

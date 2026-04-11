@@ -1,0 +1,433 @@
+<section id="gc-preview-{{ section.id }}" class="gc-preview">
+  <div class="gc-preview__container">
+    <div class="gc-preview__header">
+      <p class="gc-preview__eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="gc-preview__title">{{ section.settings.title }}</h2>
+      <p class="gc-preview__subtitle">{{ section.settings.subtitle }}</p>
+    </div>
+
+    <div class="gc-preview__content">
+      <!-- Video Display -->
+      <div class="gc-preview__video-wrap">
+        <div class="gc-preview__recipient-label">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M2 4l6 4 6-4" stroke="#e94560" stroke-width="1.2" stroke-linecap="round"/>
+            <rect x="1" y="3" width="14" height="10" rx="2" stroke="#e94560" stroke-width="1.2" fill="none"/>
+          </svg>
+          <span>A card for <strong class="gc-preview__to-name">Friend</strong></span>
+        </div>
+
+        <video
+          class="gc-preview__video"
+          autoplay muted loop playsinline
+        >
+          <source src="{{ section.settings.video_url | default: 'https://www.w3schools.com/html/mov_bbb.mp4' }}" type="video/mp4">
+        </video>
+      </div>
+
+      <!-- Message Card + Share -->
+      <div class="gc-preview__right">
+        <!-- Message display -->
+        <div class="gc-preview__message-card">
+          <div class="gc-preview__message-inner">
+            <p class="gc-preview__greeting">
+              <span class="gc-preview__greeting-to">To:</span>
+              <span class="gc-preview__to-name">Friend</span>
+            </p>
+            <p class="gc-preview__message-text">Your message will appear here once you fill in the form above...</p>
+            <div class="gc-preview__divider"></div>
+            <p class="gc-preview__from">
+              <span class="gc-preview__from-label">With love,</span>
+              <span class="gc-preview__from-name">You</span>
+            </p>
+          </div>
+          <div class="gc-preview__message-decoration" aria-hidden="true">✉</div>
+        </div>
+
+        <!-- Share section -->
+        <div class="gc-preview__share">
+          <p class="gc-preview__share-title">Share this card</p>
+
+          <div class="gc-preview__url-row">
+            <div class="gc-preview__url-display" id="gc-share-url">
+              {{ request.origin }}/pages/greeting-card?id=preview-demo
+            </div>
+            <button class="gc-preview__copy-btn" data-copy-url="gc-share-url" aria-label="Copy link">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3" fill="none"/>
+                <path d="M11 5V3.5A1.5 1.5 0 009.5 2h-6A1.5 1.5 0 002 3.5v6A1.5 1.5 0 003.5 11H5" stroke="currentColor" stroke-width="1.3" fill="none"/>
+              </svg>
+              Copy Link
+            </button>
+          </div>
+
+          <div class="gc-preview__share-actions">
+            <button class="gc-preview__share-btn gc-preview__share-btn--email">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                <path d="M2 5l7 5 7-5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+                <rect x="1" y="3.5" width="16" height="11" rx="2" stroke="currentColor" stroke-width="1.3" fill="none"/>
+              </svg>
+              Send via Email
+            </button>
+            <button class="gc-preview__share-btn gc-preview__share-btn--sms">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                <path d="M15 2H3a2 2 0 00-2 2v8a2 2 0 002 2h8l4 3V4a2 2 0 00-2-2z" stroke="currentColor" stroke-width="1.3" fill="none"/>
+                <path d="M6 7h6M6 10h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+              </svg>
+              Send via SMS
+            </button>
+          </div>
+
+          <p class="gc-preview__share-note">{{ section.settings.share_note }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .gc-preview {
+    background: #ffffff;
+    padding: 80px 32px;
+  }
+
+  .gc-preview__container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+  }
+
+  .gc-preview__header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .gc-preview__eyebrow {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #e94560;
+  }
+
+  .gc-preview__title {
+    margin: 0;
+    font-size: clamp(26px, 3vw, 40px);
+    font-weight: 700;
+    color: #1a1a2e;
+    letter-spacing: -0.02em;
+  }
+
+  .gc-preview__subtitle {
+    margin: 0;
+    font-size: 17px;
+    color: #6b7280;
+    max-width: 440px;
+  }
+
+  .gc-preview__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  /* Video */
+  .gc-preview__video-wrap {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    background: #1a1a2e;
+    box-shadow: 0 32px 80px rgba(26, 26, 46, 0.18);
+  }
+
+  .gc-preview__recipient-label {
+    position: absolute;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    padding: 8px 18px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #1a1a2e;
+    font-weight: 500;
+    white-space: nowrap;
+    z-index: 2;
+  }
+
+  .gc-preview__video {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Message card */
+  .gc-preview__right {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .gc-preview__message-card {
+    position: relative;
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 100%);
+    border-radius: 20px;
+    padding: 36px;
+    overflow: hidden;
+    min-height: 240px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 12px 40px rgba(26, 26, 46, 0.12);
+  }
+
+  .gc-preview__message-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .gc-preview__message-decoration {
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 120px;
+    opacity: 0.04;
+    line-height: 1;
+    user-select: none;
+  }
+
+  .gc-preview__greeting {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .gc-preview__greeting-to {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.35);
+    font-weight: 600;
+  }
+
+  .gc-preview__to-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  .gc-preview__message-text {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+    min-height: 2em;
+    transition: color 0.3s;
+  }
+
+  .gc-preview__divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .gc-preview__from {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .gc-preview__from-label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.35);
+    font-style: italic;
+  }
+
+  .gc-preview__from-name {
+    font-size: 17px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+
+  /* Share */
+  .gc-preview__share {
+    background: #f9f9fb;
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .gc-preview__share-title {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a1a2e;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .gc-preview__url-row {
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
+  }
+
+  .gc-preview__url-display {
+    flex: 1;
+    background: #ffffff;
+    border: 1.5px solid #e8e8f0;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #6b7280;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .gc-preview__copy-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #1a1a2e;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+    font-family: inherit;
+  }
+
+  .gc-preview__copy-btn:hover {
+    background: #e94560;
+  }
+
+  .gc-preview__copy-btn.is-copied {
+    background: #2d8a4e;
+  }
+
+  .gc-preview__share-actions {
+    display: flex;
+    gap: 10px;
+  }
+
+  .gc-preview__share-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 1.5px solid #e8e8f0;
+    border-radius: 10px;
+    padding: 11px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    background: #ffffff;
+    color: #1a1a2e;
+    transition: border-color 0.2s, background 0.2s;
+    font-family: inherit;
+  }
+
+  .gc-preview__share-btn:hover {
+    border-color: #1a1a2e;
+    background: #1a1a2e;
+    color: #ffffff;
+  }
+
+  .gc-preview__share-note {
+    margin: 0;
+    font-size: 12px;
+    color: #9ca3af;
+    text-align: center;
+  }
+
+  @media (max-width: 900px) {
+    .gc-preview__content {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .gc-preview {
+      padding: 56px 20px;
+    }
+
+    .gc-preview__message-card {
+      padding: 24px;
+    }
+
+    .gc-preview__share-actions {
+      flex-direction: column;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "GC – Preview",
+  "tag": "section",
+  "class": "gc-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Recipient's View"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "This Is What They'll See"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Beautiful on every device, no app required"
+    },
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "Preview Video URL",
+      "default": "https://www.w3schools.com/html/mov_bbb.mp4"
+    },
+    {
+      "type": "text",
+      "id": "share_note",
+      "label": "Share Note",
+      "default": "Link expires after 90 days. Recipient can replay anytime."
+    }
+  ],
+  "presets": [
+    {
+      "name": "GC – Preview"
+    }
+  ]
+}
+{% endschema %}

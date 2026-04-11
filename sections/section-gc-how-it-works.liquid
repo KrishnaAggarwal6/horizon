@@ -1,0 +1,298 @@
+<section id="gc-how-it-works-{{ section.id }}" class="gc-hiw">
+  <div class="gc-hiw__container">
+    <div class="gc-hiw__header">
+      <p class="gc-hiw__eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="gc-hiw__title">{{ section.settings.title }}</h2>
+      {% if section.settings.subtitle != blank %}
+        <p class="gc-hiw__subtitle">{{ section.settings.subtitle }}</p>
+      {% endif %}
+    </div>
+
+    <div class="gc-hiw__steps">
+      {% for block in section.blocks %}
+        <div class="gc-hiw__step" {{ block.shopify_attributes }}>
+          <div class="gc-hiw__step-icon-wrap">
+            <span class="gc-hiw__step-number">{{ forloop.index }}</span>
+            {% if block.settings.icon_svg != blank %}
+              <div class="gc-hiw__step-icon">{{ block.settings.icon_svg }}</div>
+            {% else %}
+              <div class="gc-hiw__step-icon">
+                {% case forloop.index %}
+                  {% when 1 %}
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                      <rect x="4" y="6" width="24" height="20" rx="3" stroke="#e94560" stroke-width="1.5" fill="none"/>
+                      <path d="M4 13h24" stroke="#e94560" stroke-width="1.5" opacity="0.4"/>
+                      <circle cx="10" cy="22" r="2.5" stroke="#e94560" stroke-width="1.5" fill="none"/>
+                      <path d="M15 21h9M15 24h6" stroke="#e94560" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+                    </svg>
+                  {% when 2 %}
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                      <path d="M6 8h20a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V10a2 2 0 012-2z" stroke="#e94560" stroke-width="1.5" fill="none"/>
+                      <path d="M10 14h12M10 18h8" stroke="#e94560" stroke-width="1.5" stroke-linecap="round"/>
+                      <path d="M22 10l2-3M10 10L8 7" stroke="#e94560" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+                    </svg>
+                  {% when 3 %}
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                      <circle cx="16" cy="16" r="10" stroke="#e94560" stroke-width="1.5" fill="none"/>
+                      <path d="M16 6v3M16 23v3M6 16h3M23 16h3" stroke="#e94560" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+                      <path d="M11 16l3.5 3.5L21 12" stroke="#e94560" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                {% endcase %}
+              </div>
+            {% endif %}
+          </div>
+
+          {% unless forloop.last %}
+            <div class="gc-hiw__connector" aria-hidden="true">
+              <svg viewBox="0 0 60 2" fill="none" preserveAspectRatio="none">
+                <line x1="0" y1="1" x2="60" y2="1" stroke="#e0e0ea" stroke-width="1" stroke-dasharray="4 4"/>
+              </svg>
+            </div>
+          {% endunless %}
+
+          <h3 class="gc-hiw__step-title">{{ block.settings.title }}</h3>
+          <p class="gc-hiw__step-desc">{{ block.settings.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .gc-hiw {
+    background: #1a1a2e;
+    padding: 88px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gc-hiw::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(233, 69, 96, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .gc-hiw__container {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .gc-hiw__header {
+    text-align: center;
+    margin-bottom: 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .gc-hiw__eyebrow {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #e94560;
+  }
+
+  .gc-hiw__title {
+    margin: 0;
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+  }
+
+  .gc-hiw__subtitle {
+    margin: 0;
+    font-size: 17px;
+    color: rgba(255, 255, 255, 0.45);
+    max-width: 460px;
+  }
+
+  .gc-hiw__steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    position: relative;
+  }
+
+  .gc-hiw__step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 24px;
+    position: relative;
+  }
+
+  .gc-hiw__step-icon-wrap {
+    position: relative;
+    margin-bottom: 28px;
+  }
+
+  .gc-hiw__step-number {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 22px;
+    height: 22px;
+    background: #e94560;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+  }
+
+  .gc-hiw__step-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(233, 69, 96, 0.2);
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s, border-color 0.3s;
+  }
+
+  .gc-hiw__step:hover .gc-hiw__step-icon {
+    background: rgba(233, 69, 96, 0.08);
+    border-color: rgba(233, 69, 96, 0.4);
+  }
+
+  .gc-hiw__connector {
+    position: absolute;
+    top: 40px;
+    right: -16px;
+    width: 32px;
+    z-index: 0;
+  }
+
+  .gc-hiw__connector svg {
+    width: 100%;
+    height: 2px;
+    display: block;
+  }
+
+  .gc-hiw__step-title {
+    margin: 0 0 12px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  .gc-hiw__step-desc {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  @media (max-width: 768px) {
+    .gc-hiw {
+      padding: 60px 24px;
+    }
+
+    .gc-hiw__steps {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .gc-hiw__step {
+      padding: 0;
+    }
+
+    .gc-hiw__connector {
+      display: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "GC – How It Works",
+  "tag": "section",
+  "class": "gc-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "The Process"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Simple as 1, 2, 3"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "From choosing to sending in under 2 minutes"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Step Title",
+          "default": "Choose Your Card"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Step Description",
+          "default": "Browse hundreds of premium animated cards for every occasion."
+        },
+        {
+          "type": "html",
+          "id": "icon_svg",
+          "label": "Custom SVG Icon (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "GC – How It Works",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "title": "Choose Your Card",
+            "description": "Browse hundreds of premium animated cards for every occasion. Filter by category, mood, or style."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Add Your Message",
+            "description": "Personalize with a heartfelt note. Your words are woven beautifully into the animation."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Send & Share",
+            "description": "Send via email, text, or a unique link. They'll see it instantly on any device — no app needed."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

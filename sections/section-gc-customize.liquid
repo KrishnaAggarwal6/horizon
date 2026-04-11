@@ -1,0 +1,546 @@
+<section id="gc-customize-{{ section.id }}" class="gc-customize">
+  <div class="gc-customize__container">
+    <div class="gc-customize__header">
+      <p class="gc-customize__eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="gc-customize__title">{{ section.settings.title }}</h2>
+    </div>
+
+    <!-- Card selector thumbnails -->
+    {% if section.blocks.size > 0 %}
+      <div class="gc-customize__card-options">
+        {% for block in section.blocks %}
+          <button
+            class="gc-customize__card-option{% if forloop.first %} is-selected{% endif %}"
+            data-video="{{ block.settings.video_url }}"
+            aria-label="Select {{ block.settings.label }}"
+            {{ block.shopify_attributes }}
+          >
+            {% if block.settings.thumbnail != blank %}
+              {{ block.settings.thumbnail | image_url: width: 120 | image_tag: loading: 'lazy', alt: block.settings.label }}
+            {% else %}
+              <div class="gc-customize__card-option-placeholder">{{ block.settings.label | slice: 0 }}</div>
+            {% endif %}
+            <span class="gc-customize__card-option-label">{{ block.settings.label }}</span>
+          </button>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="gc-customize__split">
+      <!-- Left: Video Player -->
+      <div class="gc-customize__player">
+        <div class="gc-customize__player-wrap">
+          <video
+            class="gc-customize__main-video"
+            autoplay muted loop playsinline
+            poster="{{ section.settings.default_video_poster | image_url: width: 700 }}"
+          >
+            <source src="{{ section.settings.default_video_url | default: 'https://www.w3schools.com/html/mov_bbb.mp4' }}" type="video/mp4">
+          </video>
+          <div class="gc-customize__player-badge">
+            <span>Live Preview</span>
+            <span class="gc-customize__live-dot"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Form -->
+      <div class="gc-customize__form-side">
+        <form class="gc-customize__form" novalidate>
+          <div class="gc-customize__field-group">
+            <label class="gc-customize__label" for="gc-recipient-{{ section.id }}">
+              To (Recipient's Name)
+            </label>
+            <input
+              type="text"
+              id="gc-recipient-{{ section.id }}"
+              name="recipient_name"
+              class="gc-customize__input"
+              placeholder="e.g. Sarah"
+              maxlength="40"
+            >
+          </div>
+
+          <div class="gc-customize__field-group">
+            <label class="gc-customize__label" for="gc-sender-{{ section.id }}">
+              From (Your Name)
+            </label>
+            <input
+              type="text"
+              id="gc-sender-{{ section.id }}"
+              name="sender_name"
+              class="gc-customize__input"
+              placeholder="e.g. James"
+              maxlength="40"
+            >
+          </div>
+
+          <div class="gc-customize__field-group">
+            <label class="gc-customize__label" for="gc-message-{{ section.id }}">
+              Your Message
+              <span class="gc-customize__label-optional">heartfelt words ✦</span>
+            </label>
+            <textarea
+              id="gc-message-{{ section.id }}"
+              name="message"
+              class="gc-customize__textarea"
+              placeholder="Write something they'll never forget..."
+              maxlength="200"
+              rows="4"
+              data-char-counter="gc-counter-{{ section.id }}"
+            ></textarea>
+            <span id="gc-counter-{{ section.id }}" class="gc-customize__counter">200 characters remaining</span>
+          </div>
+
+          {% if section.settings.show_occasion %}
+            <div class="gc-customize__field-group">
+              <label class="gc-customize__label" for="gc-occasion-{{ section.id }}">Occasion</label>
+              <select id="gc-occasion-{{ section.id }}" name="occasion" class="gc-customize__select">
+                <option value="">Select occasion</option>
+                <option value="birthday">🎂 Birthday</option>
+                <option value="thankyou">🙏 Thank You</option>
+                <option value="congrats">🎉 Congratulations</option>
+                <option value="anniversary">💑 Anniversary</option>
+                <option value="justbecause">💝 Just Because</option>
+                <option value="holiday">🎄 Holiday</option>
+              </select>
+            </div>
+          {% endif %}
+
+          <button type="button" class="gc-customize__preview-btn">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path d="M1 9s3-6 8-6 8 6 8 6-3 6-8 6-8-6-8-6z" stroke="currentColor" stroke-width="1.4" fill="none"/>
+              <circle cx="9" cy="9" r="2.5" stroke="currentColor" stroke-width="1.4" fill="none"/>
+            </svg>
+            Preview Card
+          </button>
+
+          <!-- Inline preview -->
+          <div class="gc-customize__inline-preview">
+            <p class="gc-customize__preview-label">Preview</p>
+            <div class="gc-customize__preview-card">
+              <p class="gc-customize__preview-to">To: <span class="gc-preview__to-name">Friend</span></p>
+              <p class="gc-customize__preview-message gc-preview__message-text">Your message will appear here...</p>
+              <p class="gc-customize__preview-from">From: <span class="gc-preview__from-name">You</span></p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .gc-customize {
+    background: #f5f5f7;
+    padding: 80px 32px;
+  }
+
+  .gc-customize__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .gc-customize__header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .gc-customize__eyebrow {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #e94560;
+  }
+
+  .gc-customize__title {
+    margin: 0;
+    font-size: clamp(26px, 3vw, 40px);
+    font-weight: 700;
+    color: #1a1a2e;
+    letter-spacing: -0.02em;
+  }
+
+  /* Card selector */
+  .gc-customize__card-options {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+
+  .gc-customize__card-options::-webkit-scrollbar { display: none; }
+
+  .gc-customize__card-option {
+    flex-shrink: 0;
+    width: 100px;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #e8e8f0;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .gc-customize__card-option img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    display: block;
+  }
+
+  .gc-customize__card-option-placeholder {
+    width: 100%;
+    aspect-ratio: 3/4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 700;
+    color: rgba(26, 26, 46, 0.2);
+    background: #e0e0ea;
+  }
+
+  .gc-customize__card-option-label {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    text-align: center;
+    padding: 6px 4px;
+    color: #6b7280;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .gc-customize__card-option.is-selected {
+    border-color: #e94560;
+    transform: translateY(-2px);
+  }
+
+  .gc-customize__card-option.is-selected .gc-customize__card-option-label {
+    color: #e94560;
+  }
+
+  .gc-customize__card-option:hover:not(.is-selected) {
+    border-color: #d0d0e0;
+    transform: translateY(-1px);
+  }
+
+  /* Split layout */
+  .gc-customize__split {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  /* Video player */
+  .gc-customize__player-wrap {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    background: #1a1a2e;
+    box-shadow: 0 24px 80px rgba(26, 26, 46, 0.2);
+  }
+
+  .gc-customize__main-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .gc-customize__player-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: rgba(26, 26, 46, 0.75);
+    backdrop-filter: blur(8px);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .gc-customize__live-dot {
+    width: 7px;
+    height: 7px;
+    background: #e94560;
+    border-radius: 50%;
+    animation: gc-pulse 1.5s ease-in-out infinite;
+  }
+
+  /* Form */
+  .gc-customize__form-side {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 4px 24px rgba(26, 26, 46, 0.06);
+  }
+
+  .gc-customize__form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .gc-customize__field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .gc-customize__label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a1a2e;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+
+  .gc-customize__label-optional {
+    font-size: 11px;
+    font-weight: 500;
+    color: #e94560;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  .gc-customize__input,
+  .gc-customize__select {
+    width: 100%;
+    border: 1.5px solid #e8e8f0;
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 15px;
+    color: #1a1a2e;
+    background: #f9f9fb;
+    font-family: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+    outline: none;
+    -webkit-appearance: none;
+  }
+
+  .gc-customize__input:focus,
+  .gc-customize__select:focus {
+    border-color: #e94560;
+    box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.1);
+    background: #ffffff;
+  }
+
+  .gc-customize__textarea {
+    width: 100%;
+    border: 1.5px solid #e8e8f0;
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 15px;
+    color: #1a1a2e;
+    background: #f9f9fb;
+    font-family: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+    outline: none;
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .gc-customize__textarea:focus {
+    border-color: #e94560;
+    box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.1);
+    background: #ffffff;
+  }
+
+  .gc-customize__counter {
+    font-size: 12px;
+    color: #9ca3af;
+    text-align: right;
+    display: block;
+  }
+
+  .gc-customize__counter.is-low {
+    color: #e94560;
+    font-weight: 600;
+  }
+
+  .gc-customize__preview-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    background: #1a1a2e;
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    padding: 14px 24px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    transition: background 0.2s, transform 0.15s;
+    font-family: inherit;
+  }
+
+  .gc-customize__preview-btn:hover {
+    background: #e94560;
+    transform: translateY(-1px);
+  }
+
+  /* Inline preview */
+  .gc-customize__inline-preview {
+    border-top: 1px solid #f0f0f5;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .gc-customize__preview-label {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #9ca3af;
+  }
+
+  .gc-customize__preview-card {
+    background: #f5f5f7;
+    border-radius: 12px;
+    padding: 16px 20px;
+    border-left: 3px solid #e94560;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .gc-customize__preview-to,
+  .gc-customize__preview-from {
+    margin: 0;
+    font-size: 13px;
+    color: #6b7280;
+    font-weight: 500;
+  }
+
+  .gc-customize__preview-message {
+    margin: 0;
+    font-size: 14px;
+    color: #1a1a2e;
+    line-height: 1.55;
+    font-style: italic;
+    min-height: 1.5em;
+  }
+
+  @media (max-width: 900px) {
+    .gc-customize__split {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .gc-customize {
+      padding: 56px 20px;
+    }
+
+    .gc-customize__form-side {
+      padding: 24px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "GC – Customize",
+  "tag": "section",
+  "class": "gc-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Make It Personal"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Personalize Your Card"
+    },
+    {
+      "type": "text",
+      "id": "default_video_url",
+      "label": "Default Video URL",
+      "default": "https://www.w3schools.com/html/mov_bbb.mp4"
+    },
+    {
+      "type": "image_picker",
+      "id": "default_video_poster",
+      "label": "Default Video Poster"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_occasion",
+      "label": "Show Occasion Dropdown",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card_option",
+      "name": "Card Option",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Card Label",
+          "default": "Birthday"
+        },
+        {
+          "type": "image_picker",
+          "id": "thumbnail",
+          "label": "Card Thumbnail"
+        },
+        {
+          "type": "text",
+          "id": "video_url",
+          "label": "Card MP4 URL",
+          "default": "https://www.w3schools.com/html/mov_bbb.mp4"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "GC – Customize",
+      "blocks": [
+        { "type": "card_option", "settings": { "label": "Birthday" } },
+        { "type": "card_option", "settings": { "label": "Thank You" } },
+        { "type": "card_option", "settings": { "label": "Congrats" } },
+        { "type": "card_option", "settings": { "label": "Anniversary" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

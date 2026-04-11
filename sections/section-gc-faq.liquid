@@ -1,0 +1,383 @@
+<section id="gc-faq-{{ section.id }}" class="gc-faq">
+  <div class="gc-faq__container">
+    <div class="gc-faq__header">
+      <p class="gc-faq__eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="gc-faq__title">{{ section.settings.title }}</h2>
+      {% if section.settings.subtitle != blank %}
+        <p class="gc-faq__subtitle">{{ section.settings.subtitle }}</p>
+      {% endif %}
+    </div>
+
+    <div class="gc-faq__layout">
+      <ul class="gc-faq__list" role="list">
+        {% for block in section.blocks %}
+          <li class="gc-faq__item{% if forloop.first %} is-open{% endif %}" {{ block.shopify_attributes }}>
+            <button
+              class="gc-faq__question"
+              aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
+              type="button"
+            >
+              <span>{{ block.settings.question }}</span>
+              <span class="gc-faq__icon" aria-hidden="true">
+                <svg class="gc-faq__icon-plus" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <svg class="gc-faq__icon-minus" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M4 10h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </span>
+            </button>
+            <div class="gc-faq__answer">
+              <div class="gc-faq__answer-inner">
+                {{ block.settings.answer }}
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+
+      {% if section.settings.show_contact %}
+        <div class="gc-faq__contact">
+          <div class="gc-faq__contact-card">
+            <span class="gc-faq__contact-icon" aria-hidden="true">💬</span>
+            <h3 class="gc-faq__contact-title">Still have questions?</h3>
+            <p class="gc-faq__contact-text">Our team typically responds in under 2 hours.</p>
+            <a href="{{ section.settings.contact_url | default: '/pages/contact' }}" class="gc-faq__contact-btn">
+              Chat with Us
+            </a>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .gc-faq {
+    background: #f5f5f7;
+    padding: 88px 32px;
+  }
+
+  .gc-faq__container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+  }
+
+  .gc-faq__header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .gc-faq__eyebrow {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #e94560;
+  }
+
+  .gc-faq__title {
+    margin: 0;
+    font-size: clamp(26px, 3vw, 40px);
+    font-weight: 700;
+    color: #1a1a2e;
+    letter-spacing: -0.02em;
+  }
+
+  .gc-faq__subtitle {
+    margin: 0;
+    font-size: 17px;
+    color: #6b7280;
+    max-width: 440px;
+  }
+
+  .gc-faq__layout {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .gc-faq__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid #e8e8f0;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #ffffff;
+  }
+
+  .gc-faq__item {
+    border-bottom: 1px solid #e8e8f0;
+  }
+
+  .gc-faq__item:last-child {
+    border-bottom: none;
+  }
+
+  .gc-faq__question {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 22px 28px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a2e;
+    text-align: left;
+    font-family: inherit;
+    transition: background 0.2s;
+  }
+
+  .gc-faq__question:hover {
+    background: #fafafd;
+  }
+
+  .gc-faq__item.is-open .gc-faq__question {
+    color: #e94560;
+  }
+
+  .gc-faq__icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    background: #f5f5f7;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+
+  .gc-faq__item.is-open .gc-faq__icon {
+    background: rgba(233, 69, 96, 0.1);
+    color: #e94560;
+  }
+
+  .gc-faq__icon-plus { display: block; }
+  .gc-faq__icon-minus { display: none; }
+
+  .gc-faq__item.is-open .gc-faq__icon-plus { display: none; }
+  .gc-faq__item.is-open .gc-faq__icon-minus { display: block; }
+
+  .gc-faq__answer {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s ease;
+  }
+
+  .gc-faq__item.is-open .gc-faq__answer {
+    /* Height set by JS */
+  }
+
+  .gc-faq__answer-inner {
+    padding: 0 28px 24px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #6b7280;
+  }
+
+  .gc-faq__answer-inner p {
+    margin: 0;
+  }
+
+  .gc-faq__answer-inner p + p {
+    margin-top: 12px;
+  }
+
+  .gc-faq__answer-inner a {
+    color: #e94560;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  /* Contact card */
+  .gc-faq__contact-card {
+    background: #1a1a2e;
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .gc-faq__contact-icon {
+    font-size: 36px;
+  }
+
+  .gc-faq__contact-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  .gc-faq__contact-text {
+    margin: 0;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  .gc-faq__contact-btn {
+    display: inline-flex;
+    align-items: center;
+    background: #e94560;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 50px;
+    padding: 12px 28px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    margin-top: 4px;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .gc-faq__contact-btn:hover {
+    background: #d63555;
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 600px) {
+    .gc-faq {
+      padding: 60px 20px;
+    }
+
+    .gc-faq__question {
+      padding: 18px 20px;
+      font-size: 15px;
+    }
+
+    .gc-faq__answer-inner {
+      padding: 0 20px 20px;
+    }
+
+    .gc-faq__contact-card {
+      padding: 28px 24px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "GC – FAQ",
+  "tag": "section",
+  "class": "gc-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "FAQ"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Questions? We've Got Answers"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Everything you need to know about animated greeting cards"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_contact",
+      "label": "Show Contact Card",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "contact_url",
+      "label": "Contact URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "How do I send a card?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Choose a card, personalize your message, then share the unique link via email, text, or any messaging app. No account required to view.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "GC – FAQ",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How do I send a card?",
+            "answer": "<p>Choose any card from our library, add your personal message, then share the unique link via email, text, or any messaging app. Recipients can view it instantly on any device — no app download required.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can recipients reply to my card?",
+            "answer": "<p>Yes! Recipients can send a short reply message directly from the card page. You'll receive it via email. This feature is available on Pro and Business plans.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What if they don't receive the email?",
+            "answer": "<p>Every card comes with a unique shareable link that never expires during the 90-day replay window. You can copy and re-send this link via any channel. You'll also see delivery confirmation in your dashboard.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I schedule cards to be sent later?",
+            "answer": "<p>Absolutely. With Pro and Business plans, you can schedule cards up to 12 months in advance. Perfect for remembering birthdays and anniversaries automatically.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you have cards for business use?",
+            "answer": "<p>Yes — our Business plan includes custom branding, team access for up to 5 seats, analytics, and API access for automated sending. <a href=\"/pages/business\">Learn more about business features.</a></p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is there a free option?",
+            "answer": "<p>Yes! Our free plan lets you send up to 3 animated cards per month with access to 12 basic templates. No credit card required to sign up.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
