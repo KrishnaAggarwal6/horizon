@@ -1,0 +1,299 @@
+<div id="efg-email-{{ section.id }}" class="efg-email">
+  <div class="efg-email__container">
+    <div class="efg-email__content">
+      <p class="efg-email__eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="efg-email__title">{{ section.settings.title }}</h2>
+
+      {% if section.settings.show_bullets %}
+        <ul class="efg-email__bullets">
+          {% for block in section.blocks %}
+            <li class="efg-email__bullet" {{ block.shopify_attributes }}>
+              <span class="efg-email__bullet-icon" aria-hidden="true">✓</span>
+              {{ block.settings.text }}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+
+    <div class="efg-email__form-wrap">
+      {% form 'customer', class: 'efg-email__form' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <div class="efg-email__field-row">
+          <label for="efg-email-input-{{ section.id }}" class="visually-hidden">Email address</label>
+          <input
+            type="email"
+            id="efg-email-input-{{ section.id }}"
+            name="contact[email]"
+            class="efg-email__input"
+            placeholder="{{ section.settings.input_placeholder }}"
+            required
+            autocomplete="email"
+          >
+          <button type="submit" class="efg-email__submit">
+            {{ section.settings.button_label }}
+          </button>
+        </div>
+        {% if form.posted_successfully? %}
+          <p class="efg-email__success" role="status">{{ section.settings.success_message }}</p>
+        {% endif %}
+        {% if form.errors %}
+          <p class="efg-email__error" role="alert">{{ form.errors | default_errors }}</p>
+        {% endif %}
+      {% endform %}
+      <p class="efg-email__disclaimer">{{ section.settings.disclaimer }}</p>
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .efg-email {
+    background: #f8fafc;
+    padding: 72px 24px;
+    border-top: 1px solid #e4e4ea;
+    border-bottom: 1px solid #e4e4ea;
+  }
+
+  .efg-email__container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .efg-email__content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .efg-email__eyebrow {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: #4a8aff;
+    text-transform: uppercase;
+  }
+
+  .efg-email__title {
+    margin: 0;
+    font-size: clamp(22px, 2.5vw, 32px);
+    font-weight: 700;
+    color: #1a1a6e;
+    line-height: 1.2;
+  }
+
+  .efg-email__bullets {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .efg-email__bullet {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #1e293b;
+    font-weight: 500;
+  }
+
+  .efg-email__bullet-icon {
+    width: 20px;
+    height: 20px;
+    background: #4a8aff;
+    color: #ffffff;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .efg-email__form-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .efg-email__form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .efg-email__field-row {
+    display: flex;
+    gap: 0;
+    border: 1px solid #d0d0e0;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #ffffff;
+  }
+
+  .efg-email__input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 14px 18px;
+    font-size: 14px;
+    color: #1e293b;
+    background: transparent;
+    font-family: inherit;
+  }
+
+  .efg-email__input::placeholder {
+    color: #9999b8;
+  }
+
+  .efg-email__submit {
+    background: #1a1a6e;
+    color: #ffffff;
+    border: none;
+    padding: 14px 24px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+    font-family: inherit;
+  }
+
+  .efg-email__submit:hover {
+    background: #2a2a8e;
+  }
+
+  .efg-email__success {
+    margin: 0;
+    font-size: 14px;
+    color: #2d8a4e;
+    font-weight: 600;
+  }
+
+  .efg-email__error {
+    margin: 0;
+    font-size: 14px;
+    color: #c4392a;
+  }
+
+  .efg-email__disclaimer {
+    margin: 0;
+    font-size: 12px;
+    color: #9999b8;
+  }
+
+  @media (max-width: 768px) {
+    .efg-email {
+      padding: 48px 20px;
+    }
+
+    .efg-email__container {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .efg-email__field-row {
+      flex-direction: column;
+      border-radius: 12px;
+    }
+
+    .efg-email__submit {
+      border-radius: 0 0 11px 11px;
+      width: 100%;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "EFG – Email Signup",
+  "tag": "section",
+  "class": "efg-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "EXCLUSIVE OFFER"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Get 10% OFF Your First Order"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bullets",
+      "label": "Show benefit bullets",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "input_placeholder",
+      "label": "Input Placeholder",
+      "default": "Enter your email address"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Get My Discount"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success Message",
+      "default": "You're in! Check your inbox for your discount code."
+    },
+    {
+      "type": "text",
+      "id": "disclaimer",
+      "label": "Disclaimer",
+      "default": "No spam, ever. Unsubscribe at any time."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bullet",
+      "name": "Benefit Bullet",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Benefit Text",
+          "default": "Exclusive member discounts"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "EFG – Email Signup",
+      "blocks": [
+        {
+          "type": "bullet",
+          "settings": { "text": "Exclusive member discounts" }
+        },
+        {
+          "type": "bullet",
+          "settings": { "text": "New product drops first" }
+        },
+        {
+          "type": "bullet",
+          "settings": { "text": "Free workout tips & guides" }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

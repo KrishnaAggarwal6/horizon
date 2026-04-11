@@ -1,0 +1,281 @@
+<div id="efg-results-{{ section.id }}" class="efg-results">
+  <div class="efg-results__container">
+    <div class="efg-results__header">
+      <p class="efg-results__eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="efg-results__title">{{ section.settings.title }}</h2>
+    </div>
+
+    <div class="efg-results__grid">
+      {% for block in section.blocks %}
+        <div class="efg-results__card" {{ block.shopify_attributes }}>
+          <div class="efg-results__image-wrap">
+            {% if block.settings.image != blank %}
+              {{ block.settings.image | image_url: width: 400 | image_tag: loading: 'lazy', alt: block.settings.name, class: 'efg-results__image' }}
+            {% else %}
+              {{ 'person-1' | placeholder_svg_tag: 'efg-results__placeholder' }}
+            {% endif %}
+          </div>
+          <div class="efg-results__body">
+            <div class="efg-results__stars" aria-label="5 out of 5 stars">
+              {% for i in (1..5) %}
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="#f5a623" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M8 1.333l1.8 3.654 4.033.587-2.917 2.84.688 4.013L8 10.347l-3.604 1.88.688-4.013-2.917-2.84 4.033-.587L8 1.333z"/>
+                </svg>
+              {% endfor %}
+            </div>
+            <blockquote class="efg-results__quote">
+              <p>"{{ block.settings.quote }}"</p>
+            </blockquote>
+            <div class="efg-results__person">
+              <div class="efg-results__avatar" style="background: {{ block.settings.avatar_color }};">
+                {{ block.settings.name | slice: 0 }}
+              </div>
+              <span class="efg-results__name">{{ block.settings.name }}</span>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .efg-results {
+    background: #f4f4f6;
+    padding: 72px 24px;
+  }
+
+  .efg-results__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .efg-results__header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .efg-results__eyebrow {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: #4a8aff;
+    text-transform: uppercase;
+  }
+
+  .efg-results__title {
+    margin: 0;
+    font-size: clamp(26px, 3vw, 38px);
+    font-weight: 600;
+    color: #1a1a6e;
+  }
+
+  .efg-results__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .efg-results__card {
+    background: #ffffff;
+    border: 1px solid #e4e4ea;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.2s;
+  }
+
+  .efg-results__card:hover {
+    box-shadow: 0 6px 24px rgba(26, 26, 110, 0.1);
+  }
+
+  .efg-results__image-wrap {
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    background: #eaeaf0;
+  }
+
+  .efg-results__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s;
+  }
+
+  .efg-results__card:hover .efg-results__image {
+    transform: scale(1.04);
+  }
+
+  .efg-results__placeholder {
+    width: 100%;
+    height: 100%;
+  }
+
+  .efg-results__body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .efg-results__stars {
+    display: flex;
+    gap: 2px;
+  }
+
+  .efg-results__quote {
+    margin: 0;
+  }
+
+  .efg-results__quote p {
+    margin: 0;
+    font-size: 14px;
+    color: #1e293b;
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  .efg-results__person {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 4px;
+  }
+
+  .efg-results__avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #ffffff;
+    flex-shrink: 0;
+  }
+
+  .efg-results__name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a6e;
+  }
+
+  @media (max-width: 1024px) {
+    .efg-results__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .efg-results {
+      padding: 48px 16px;
+    }
+
+    .efg-results__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "EFG – Real Results",
+  "tag": "section",
+  "class": "efg-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "REAL RESULTS"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Real Results from Real People"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "result",
+      "name": "Result Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Customer Photo"
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote",
+          "default": "Lost 12 lbs in 6 weeks using the resistance bands every morning."
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Customer Name",
+          "default": "Alex M."
+        },
+        {
+          "type": "color",
+          "id": "avatar_color",
+          "label": "Avatar Color",
+          "default": "#1a1a6e"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "EFG – Real Results",
+      "blocks": [
+        {
+          "type": "result",
+          "settings": {
+            "quote": "Lost 12 lbs in 6 weeks using the resistance bands every morning.",
+            "name": "Alex M.",
+            "avatar_color": "#1a1a6e"
+          }
+        },
+        {
+          "type": "result",
+          "settings": {
+            "quote": "Built visible abs in 8 weeks without ever going to a gym.",
+            "name": "Jenny K.",
+            "avatar_color": "#2d6a4f"
+          }
+        },
+        {
+          "type": "result",
+          "settings": {
+            "quote": "Push-up board gave me the chest I always wanted. Incredible product.",
+            "name": "Chris D.",
+            "avatar_color": "#7c3aed"
+          }
+        },
+        {
+          "type": "result",
+          "settings": {
+            "quote": "Travelling for work but still hitting my fitness goals. Game changer.",
+            "name": "Priya S.",
+            "avatar_color": "#c4392a"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

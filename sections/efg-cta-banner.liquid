@@ -1,0 +1,160 @@
+<div id="efg-cta-{{ section.id }}" class="efg-cta">
+  <div class="efg-cta__bg"></div>
+  <div class="efg-cta__container">
+    <p class="efg-cta__eyebrow">{{ section.settings.eyebrow }}</p>
+    <h2 class="efg-cta__title">
+      <span class="efg-cta__title-white">{{ section.settings.title_line1 }}</span>
+      <span class="efg-cta__title-accent">{{ section.settings.title_line2 }}</span>
+    </h2>
+    {% if section.settings.subtext != blank %}
+      <p class="efg-cta__subtext">{{ section.settings.subtext }}</p>
+    {% endif %}
+    <a href="{{ section.settings.button_url | default: '/collections/all' }}" class="efg-cta__btn">
+      {{ section.settings.button_label }}
+    </a>
+  </div>
+</div>
+
+{% stylesheet %}
+  .efg-cta {
+    position: relative;
+    background: linear-gradient(135deg, #070720 0%, #1a1a6e 50%, #070720 100%);
+    padding: 80px 24px;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .efg-cta__bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(60% 80% at 50% 50%, rgba(74, 138, 255, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .efg-cta__container {
+    position: relative;
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .efg-cta__eyebrow {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: #4a8aff;
+    text-transform: uppercase;
+  }
+
+  .efg-cta__title {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .efg-cta__title-white {
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.1;
+    display: block;
+  }
+
+  .efg-cta__title-accent {
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 700;
+    color: #4a8aff;
+    line-height: 1.1;
+    display: block;
+  }
+
+  .efg-cta__subtext {
+    margin: 0;
+    font-size: 17px;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.6;
+    max-width: 500px;
+  }
+
+  .efg-cta__btn {
+    display: inline-flex;
+    align-items: center;
+    background: #ffffff;
+    color: #1a1a6e;
+    text-decoration: none;
+    border-radius: 30px;
+    padding: 16px 40px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-top: 8px;
+    box-shadow: 0 0 32px rgba(255, 255, 255, 0.15);
+    transition: background 0.2s, box-shadow 0.2s;
+  }
+
+  .efg-cta__btn:hover {
+    background: #e8ecff;
+    box-shadow: 0 0 48px rgba(255, 255, 255, 0.25);
+  }
+
+  @media (max-width: 640px) {
+    .efg-cta {
+      padding: 60px 20px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "EFG – CTA Banner",
+  "tag": "section",
+  "class": "efg-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "DON'T WAIT"
+    },
+    {
+      "type": "text",
+      "id": "title_line1",
+      "label": "Title Line 1 (white)",
+      "default": "Stop Waiting."
+    },
+    {
+      "type": "text",
+      "id": "title_line2",
+      "label": "Title Line 2 (blue accent)",
+      "default": "Start Training."
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Join 5,000+ customers who ditched the gym and built their dream physique at home."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "EFG – CTA Banner"
+    }
+  ]
+}
+{% endschema %}

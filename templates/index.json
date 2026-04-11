@@ -1,290 +1,323 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */{
+{
   "sections": {
-    "hero_jVaWmY": {
-      "type": "hero",
+    "efg_announcement_bar": {
+      "type": "efg-announcement-bar",
       "blocks": {
-        "text_YLPk4p": {
-          "type": "text",
-          "name": "t:names.heading",
+        "item_1": {
+          "type": "item",
           "settings": {
-            "text": "<p>Browse our latest products</p>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h2",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "var(--color-foreground-heading)",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "icon": "🚚",
+            "text": "Free Worldwide Shipping"
+          }
         },
-        "button_H9gpTf": {
-          "type": "button",
-          "name": "t:names.button",
+        "item_2": {
+          "type": "item",
           "settings": {
-            "label": "Shop all",
-            "link": "shopify://collections/all",
-            "open_in_new_tab": false,
-            "style_class": "button-secondary",
-            "width": "fit-content",
-            "custom_width": 100,
-            "width_mobile": "fit-content",
-            "custom_width_mobile": 100
-          },
-          "blocks": {}
+            "icon": "🔄",
+            "text": "30-Day Money Back"
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "icon": "🔒",
+            "text": "100% Secure Checkout"
+          }
+        },
+        "item_4": {
+          "type": "item",
+          "settings": {
+            "icon": "⭐",
+            "text": "5,000+ Happy Customers"
+          }
+        },
+        "item_5": {
+          "type": "item",
+          "settings": {
+            "icon": "💪",
+            "text": "Premium Quality Gear"
+          }
         }
       },
-      "block_order": [
-        "text_YLPk4p",
-        "button_H9gpTf"
-      ],
-      "name": "t:names.hero",
+      "block_order": ["item_1", "item_2", "item_3", "item_4", "item_5"]
+    },
+    "efg_hero": {
+      "type": "efg-hero",
       "settings": {
-        "media_type_1": "image",
-        "media_type_2": "image",
-        "stack_media_on_mobile": false,
-        "custom_mobile_media": false,
-        "media_type_1_mobile": "image",
-        "media_type_2_mobile": "image",
-        "open_in_new_tab": false,
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "space-between",
-        "vertical_alignment": "flex-end",
-        "align_baseline": true,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "flex-end",
-        "gap": 24,
-        "section_width": "page-width",
-        "section_height": "medium",
-        "section_height_custom": 50,
-        "color_scheme": "scheme-6",
-        "toggle_overlay": true,
-        "overlay_color": "#12121266",
-        "overlay_style": "solid",
-        "gradient_direction": "to bottom",
-        "blurred_reflection": false,
-        "reflection_opacity": 75,
-        "padding-block-start": 100,
-        "padding-block-end": 72
+        "badge_text": "PREMIUM HOME FITNESS",
+        "headline_line1": "Stop Paying for the Gym.",
+        "headline_line2": "Build Yours at Home.",
+        "subtext": "Train anytime. Save money. Get real results — without commuting, waiting, or wasting time.",
+        "primary_cta_label": "Build My Home Gym",
+        "secondary_cta_label": "See How It Works",
+        "trust_1": "4.9/5 from 5,000+ Customers",
+        "trust_2": "Free Shipping Over $50",
+        "trust_3": "Secure Checkout"
       }
     },
-    "product_list_fa6P9H": {
-      "type": "product-list",
+    "efg_usp_cards": {
+      "type": "efg-usp-cards",
       "blocks": {
-        "static-header": {
-          "type": "_product-list-content",
-          "name": "t:names.header",
-          "static": true,
+        "card_1": {
+          "type": "card",
           "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": false,
-            "horizontal_alignment": "space-between",
-            "vertical_alignment": "flex-end",
-            "align_baseline": true,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_list_text_YFtzcL": {
-              "type": "_product-list-text",
-              "name": "t:names.collection_title",
-              "settings": {
-                "text": "<h3>{{ closest.collection.title }}</h3>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h4",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_list_button_MWeP9V": {
-              "type": "_product-list-button",
-              "name": "t:names.product_list_button",
-              "settings": {
-                "label": "View all",
-                "open_in_new_tab": false,
-                "style_class": "link",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_list_text_YFtzcL",
-            "product_list_button_MWeP9V"
-          ]
+            "icon": "💪",
+            "title": "Replace the Gym",
+            "description": "No machines. Same results."
+          }
         },
-        "static-product-card": {
-          "type": "_product-card",
-          "name": "t:names.product_card",
-          "static": true,
+        "card_2": {
+          "type": "card",
           "settings": {
-            "product_card_gap": 4,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_card_gallery_677WP3": {
-              "type": "_product-card-gallery",
-              "name": "t:names.product_card_media",
-              "settings": {
-                "image_ratio": "adapt",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_title_YXxMTj": {
-              "type": "product-title",
-              "name": "t:names.product_title",
-              "settings": {
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "price_JQzVV4": {
-              "type": "price",
-              "name": "t:names.product_price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "color": "var(--color-foreground)",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_card_gallery_677WP3",
-            "product_title_YXxMTj",
-            "price_JQzVV4"
-          ]
+            "icon": "🌍",
+            "title": "Train Anywhere",
+            "description": "Home, travel, outdoors."
+          }
+        },
+        "card_3": {
+          "type": "card",
+          "settings": {
+            "icon": "⚡",
+            "title": "See Results Faster",
+            "description": "Full-body workouts in minutes."
+          }
         }
       },
-      "name": "Featured collection",
+      "block_order": ["card_1", "card_2", "card_3"]
+    },
+    "efg_how_it_works": {
+      "type": "efg-how-it-works",
       "settings": {
-        "collection": "all",
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "max_products": 8,
-        "columns": 4,
-        "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 8,
-        "rows_gap": 24,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "horizontal_alignment": "flex-start",
-        "gap": 28,
-        "color_scheme": "scheme-1",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "title": "A Smarter Way to Train"
+      },
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Build Your Setup",
+            "description": "Everything you need in one compact system. No machines required."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Train Anywhere",
+            "description": "No gym. No commute. No limits. Home, travel, outdoors — your choice."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "See Real Results",
+            "description": "Burn fat. Build muscle. Stay consistent. Full-body workouts in minutes."
+          }
+        }
+      },
+      "block_order": ["step_1", "step_2", "step_3"]
+    },
+    "efg_featured_products": {
+      "type": "efg-featured-products",
+      "settings": {
+        "title_prefix": "🔥 Most Popular",
+        "title_accent": "Right Now",
+        "products_count": 4,
+        "show_tabs": true,
+        "tab_labels": "All, Bands, Boards, Recovery"
       }
+    },
+    "efg_testimonials": {
+      "type": "efg-testimonials",
+      "settings": {
+        "title": "People Are Canceling Their Gym Memberships After This"
+      },
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "quote": "I canceled my gym membership after buying the resistance band set. Best fitness purchase I've ever made.",
+            "name": "Mike R.",
+            "avatar_color": "#1a1a6e",
+            "date": "March 2025"
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "quote": "Replaced my entire gym setup. Fast shipping, everything arrived perfectly packaged. Couldn't be happier.",
+            "name": "Sarah L.",
+            "avatar_color": "#2d6a4f",
+            "date": "Feb 2025"
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "quote": "The push-up board is a total game changer. Way more targeted than regular push-ups. Premium build quality.",
+            "name": "James T.",
+            "avatar_color": "#7c3aed",
+            "date": "Jan 2025"
+          }
+        }
+      },
+      "block_order": ["review_1", "review_2", "review_3"]
+    },
+    "efg_social_proof": {
+      "type": "efg-social-proof",
+      "settings": {
+        "title": "Why 5,000+ Athletes Choose EFG"
+      },
+      "blocks": {
+        "bullet_1": {
+          "type": "bullet",
+          "settings": { "text": "Premium Quality — built to last" }
+        },
+        "bullet_2": {
+          "type": "bullet",
+          "settings": { "text": "Fast Delivery — ships same day" }
+        },
+        "bullet_3": {
+          "type": "bullet",
+          "settings": { "text": "Athlete Tested — endorsed by pros" }
+        },
+        "bullet_4": {
+          "type": "bullet",
+          "settings": { "text": "Built for Results — not just looks" }
+        },
+        "stat_1": {
+          "type": "stat",
+          "settings": { "number": "75+", "label": "Products" }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": { "number": "5.2K", "label": "Reviews" }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": { "number": "98%", "label": "Satisfaction" }
+        }
+      },
+      "block_order": ["bullet_1", "bullet_2", "bullet_3", "bullet_4", "stat_1", "stat_2", "stat_3"]
+    },
+    "efg_collection_grid": {
+      "type": "efg-collection-grid",
+      "settings": {
+        "eyebrow": "SHOP BY GOAL",
+        "title": "Find Your Training Path"
+      },
+      "blocks": {
+        "coll_1": {
+          "type": "collection_card",
+          "settings": { "label": "Strength Training" }
+        },
+        "coll_2": {
+          "type": "collection_card",
+          "settings": { "label": "Core & Abs" }
+        },
+        "coll_3": {
+          "type": "collection_card",
+          "settings": { "label": "Recovery" }
+        },
+        "coll_4": {
+          "type": "collection_card",
+          "settings": { "label": "Full Gym Kit" }
+        }
+      },
+      "block_order": ["coll_1", "coll_2", "coll_3", "coll_4"]
+    },
+    "efg_real_results": {
+      "type": "efg-real-results",
+      "settings": {
+        "eyebrow": "REAL RESULTS",
+        "title": "Real Results from Real People"
+      },
+      "blocks": {
+        "result_1": {
+          "type": "result",
+          "settings": {
+            "quote": "Lost 12 lbs in 6 weeks using the resistance bands every morning.",
+            "name": "Alex M.",
+            "avatar_color": "#1a1a6e"
+          }
+        },
+        "result_2": {
+          "type": "result",
+          "settings": {
+            "quote": "Built visible abs in 8 weeks without ever going to a gym.",
+            "name": "Jenny K.",
+            "avatar_color": "#2d6a4f"
+          }
+        },
+        "result_3": {
+          "type": "result",
+          "settings": {
+            "quote": "Push-up board gave me the chest I always wanted. Incredible product.",
+            "name": "Chris D.",
+            "avatar_color": "#7c3aed"
+          }
+        },
+        "result_4": {
+          "type": "result",
+          "settings": {
+            "quote": "Travelling for work but still hitting my fitness goals. Game changer.",
+            "name": "Priya S.",
+            "avatar_color": "#c4392a"
+          }
+        }
+      },
+      "block_order": ["result_1", "result_2", "result_3", "result_4"]
+    },
+    "efg_cta_banner": {
+      "type": "efg-cta-banner",
+      "settings": {
+        "eyebrow": "DON'T WAIT",
+        "title_line1": "Stop Waiting.",
+        "title_line2": "Start Training.",
+        "subtext": "Join 5,000+ customers who ditched the gym and built their dream physique at home.",
+        "button_label": "Shop Now"
+      }
+    },
+    "efg_email_signup": {
+      "type": "efg-email-signup",
+      "settings": {
+        "eyebrow": "EXCLUSIVE OFFER",
+        "title": "Get 10% OFF Your First Order",
+        "show_bullets": true,
+        "input_placeholder": "Enter your email address",
+        "button_label": "Get My Discount",
+        "success_message": "You're in! Check your inbox for your discount code.",
+        "disclaimer": "No spam, ever. Unsubscribe at any time."
+      },
+      "blocks": {
+        "bullet_1": {
+          "type": "bullet",
+          "settings": { "text": "Exclusive member discounts" }
+        },
+        "bullet_2": {
+          "type": "bullet",
+          "settings": { "text": "New product drops first" }
+        },
+        "bullet_3": {
+          "type": "bullet",
+          "settings": { "text": "Free workout tips & guides" }
+        }
+      },
+      "block_order": ["bullet_1", "bullet_2", "bullet_3"]
     }
   },
   "order": [
-    "hero_jVaWmY",
-    "product_list_fa6P9H"
+    "efg_announcement_bar",
+    "efg_hero",
+    "efg_usp_cards",
+    "efg_how_it_works",
+    "efg_featured_products",
+    "efg_testimonials",
+    "efg_social_proof",
+    "efg_collection_grid",
+    "efg_real_results",
+    "efg_cta_banner",
+    "efg_email_signup"
   ]
 }
