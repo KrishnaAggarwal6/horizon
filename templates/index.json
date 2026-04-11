@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "efg_announcement_bar": {
@@ -39,7 +48,14 @@
           }
         }
       },
-      "block_order": ["item_1", "item_2", "item_3", "item_4", "item_5"]
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4",
+        "item_5"
+      ],
+      "settings": {}
     },
     "efg_hero": {
       "type": "efg-hero",
@@ -49,7 +65,9 @@
         "headline_line2": "Build Yours at Home.",
         "subtext": "Train anytime. Save money. Get real results — without commuting, waiting, or wasting time.",
         "primary_cta_label": "Build My Home Gym",
+        "primary_cta_url": "",
         "secondary_cta_label": "See How It Works",
+        "secondary_cta_url": "",
         "trust_1": "4.9/5 from 5,000+ Customers",
         "trust_2": "Free Shipping Over $50",
         "trust_3": "Secure Checkout"
@@ -83,13 +101,15 @@
           }
         }
       },
-      "block_order": ["card_1", "card_2", "card_3"]
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3"
+      ],
+      "settings": {}
     },
     "efg_how_it_works": {
       "type": "efg-how-it-works",
-      "settings": {
-        "title": "A Smarter Way to Train"
-      },
       "blocks": {
         "step_1": {
           "type": "step",
@@ -113,23 +133,29 @@
           }
         }
       },
-      "block_order": ["step_1", "step_2", "step_3"]
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ],
+      "settings": {
+        "title": "A Smarter Way to Train"
+      }
     },
     "efg_featured_products": {
       "type": "efg-featured-products",
       "settings": {
         "title_prefix": "🔥 Most Popular",
         "title_accent": "Right Now",
+        "collection": "",
         "products_count": 4,
         "show_tabs": true,
-        "tab_labels": "All, Bands, Boards, Recovery"
+        "tab_labels": "All, Bands, Boards, Recovery",
+        "view_all_url": ""
       }
     },
     "efg_testimonials": {
       "type": "efg-testimonials",
-      "settings": {
-        "title": "People Are Canceling Their Gym Memberships After This"
-      },
       "blocks": {
         "review_1": {
           "type": "review",
@@ -162,77 +188,122 @@
           }
         }
       },
-      "block_order": ["review_1", "review_2", "review_3"]
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3"
+      ],
+      "settings": {
+        "title": "People Are Canceling Their Gym Memberships After This"
+      }
     },
     "efg_social_proof": {
       "type": "efg-social-proof",
-      "settings": {
-        "title": "Why 5,000+ Athletes Choose EFG"
-      },
       "blocks": {
         "bullet_1": {
           "type": "bullet",
-          "settings": { "text": "Premium Quality — built to last" }
+          "settings": {
+            "text": "Premium Quality — built to last"
+          }
         },
         "bullet_2": {
           "type": "bullet",
-          "settings": { "text": "Fast Delivery — ships same day" }
+          "settings": {
+            "text": "Fast Delivery — ships same day"
+          }
         },
         "bullet_3": {
           "type": "bullet",
-          "settings": { "text": "Athlete Tested — endorsed by pros" }
+          "settings": {
+            "text": "Athlete Tested — endorsed by pros"
+          }
         },
         "bullet_4": {
           "type": "bullet",
-          "settings": { "text": "Built for Results — not just looks" }
+          "settings": {
+            "text": "Built for Results — not just looks"
+          }
         },
         "stat_1": {
           "type": "stat",
-          "settings": { "number": "75+", "label": "Products" }
+          "settings": {
+            "number": "75+",
+            "label": "Products"
+          }
         },
         "stat_2": {
           "type": "stat",
-          "settings": { "number": "5.2K", "label": "Reviews" }
+          "settings": {
+            "number": "5.2K",
+            "label": "Reviews"
+          }
         },
         "stat_3": {
           "type": "stat",
-          "settings": { "number": "98%", "label": "Satisfaction" }
+          "settings": {
+            "number": "98%",
+            "label": "Satisfaction"
+          }
         }
       },
-      "block_order": ["bullet_1", "bullet_2", "bullet_3", "bullet_4", "stat_1", "stat_2", "stat_3"]
+      "block_order": [
+        "bullet_1",
+        "bullet_2",
+        "bullet_3",
+        "bullet_4",
+        "stat_1",
+        "stat_2",
+        "stat_3"
+      ],
+      "settings": {
+        "title": "Why 5,000+ Athletes Choose EFG"
+      }
     },
     "efg_collection_grid": {
       "type": "efg-collection-grid",
-      "settings": {
-        "eyebrow": "SHOP BY GOAL",
-        "title": "Find Your Training Path"
-      },
       "blocks": {
         "coll_1": {
           "type": "collection_card",
-          "settings": { "label": "Strength Training" }
+          "settings": {
+            "label": "Strength Training",
+            "url": ""
+          }
         },
         "coll_2": {
           "type": "collection_card",
-          "settings": { "label": "Core & Abs" }
+          "settings": {
+            "label": "Core & Abs",
+            "url": ""
+          }
         },
         "coll_3": {
           "type": "collection_card",
-          "settings": { "label": "Recovery" }
+          "settings": {
+            "label": "Recovery",
+            "url": ""
+          }
         },
         "coll_4": {
           "type": "collection_card",
-          "settings": { "label": "Full Gym Kit" }
+          "settings": {
+            "label": "Full Gym Kit",
+            "url": ""
+          }
         }
       },
-      "block_order": ["coll_1", "coll_2", "coll_3", "coll_4"]
+      "block_order": [
+        "coll_1",
+        "coll_2",
+        "coll_3",
+        "coll_4"
+      ],
+      "settings": {
+        "eyebrow": "SHOP BY GOAL",
+        "title": "Find Your Training Path"
+      }
     },
     "efg_real_results": {
       "type": "efg-real-results",
-      "settings": {
-        "eyebrow": "REAL RESULTS",
-        "title": "Real Results from Real People"
-      },
       "blocks": {
         "result_1": {
           "type": "result",
@@ -267,7 +338,16 @@
           }
         }
       },
-      "block_order": ["result_1", "result_2", "result_3", "result_4"]
+      "block_order": [
+        "result_1",
+        "result_2",
+        "result_3",
+        "result_4"
+      ],
+      "settings": {
+        "eyebrow": "REAL RESULTS",
+        "title": "Real Results from Real People"
+      }
     },
     "efg_cta_banner": {
       "type": "efg-cta-banner",
@@ -276,11 +356,37 @@
         "title_line1": "Stop Waiting.",
         "title_line2": "Start Training.",
         "subtext": "Join 5,000+ customers who ditched the gym and built their dream physique at home.",
-        "button_label": "Shop Now"
+        "button_label": "Shop Now",
+        "button_url": ""
       }
     },
     "efg_email_signup": {
       "type": "efg-email-signup",
+      "blocks": {
+        "bullet_1": {
+          "type": "bullet",
+          "settings": {
+            "text": "Exclusive member discounts"
+          }
+        },
+        "bullet_2": {
+          "type": "bullet",
+          "settings": {
+            "text": "New product drops first"
+          }
+        },
+        "bullet_3": {
+          "type": "bullet",
+          "settings": {
+            "text": "Free workout tips & guides"
+          }
+        }
+      },
+      "block_order": [
+        "bullet_1",
+        "bullet_2",
+        "bullet_3"
+      ],
       "settings": {
         "eyebrow": "EXCLUSIVE OFFER",
         "title": "Get 10% OFF Your First Order",
@@ -289,22 +395,7 @@
         "button_label": "Get My Discount",
         "success_message": "You're in! Check your inbox for your discount code.",
         "disclaimer": "No spam, ever. Unsubscribe at any time."
-      },
-      "blocks": {
-        "bullet_1": {
-          "type": "bullet",
-          "settings": { "text": "Exclusive member discounts" }
-        },
-        "bullet_2": {
-          "type": "bullet",
-          "settings": { "text": "New product drops first" }
-        },
-        "bullet_3": {
-          "type": "bullet",
-          "settings": { "text": "Free workout tips & guides" }
-        }
-      },
-      "block_order": ["bullet_1", "bullet_2", "bullet_3"]
+      }
     }
   },
   "order": [
