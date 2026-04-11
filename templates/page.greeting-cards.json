@@ -1,0 +1,314 @@
+{
+  "sections": {
+    "gc_hero": {
+      "type": "section-gc-hero",
+      "settings": {
+        "eyebrow": "Premium Animated Cards",
+        "headline": "Send Animated Cards That Actually Feel Personal",
+        "subtext": "Beautiful animated greeting cards you can personalize in seconds and share with anyone — no app download required.",
+        "primary_label": "Browse Cards",
+        "secondary_label": "See How It Works"
+      }
+    },
+    "gc_card_slider": {
+      "type": "section-gc-card-slider",
+      "settings": {
+        "eyebrow": "Trending Now",
+        "title": "Popular Cards"
+      },
+      "blocks": {
+        "card_1": {
+          "type": "card",
+          "settings": {
+            "title": "Happy Birthday",
+            "category": "Birthday",
+            "video_url": "https://www.w3schools.com/html/mov_bbb.mp4"
+          }
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {
+            "title": "Thank You So Much",
+            "category": "Thank You",
+            "video_url": "https://www.w3schools.com/html/mov_bbb.mp4"
+          }
+        },
+        "card_3": {
+          "type": "card",
+          "settings": {
+            "title": "Congratulations!",
+            "category": "Congratulations",
+            "video_url": "https://www.w3schools.com/html/mov_bbb.mp4"
+          }
+        },
+        "card_4": {
+          "type": "card",
+          "settings": {
+            "title": "Happy Anniversary",
+            "category": "Anniversary",
+            "video_url": "https://www.w3schools.com/html/mov_bbb.mp4"
+          }
+        },
+        "card_5": {
+          "type": "card",
+          "settings": {
+            "title": "Just Because",
+            "category": "Just Because",
+            "video_url": "https://www.w3schools.com/html/mov_bbb.mp4"
+          }
+        },
+        "card_6": {
+          "type": "card",
+          "settings": {
+            "title": "Happy Holidays",
+            "category": "Holiday",
+            "video_url": "https://www.w3schools.com/html/mov_bbb.mp4"
+          }
+        }
+      },
+      "block_order": ["card_1", "card_2", "card_3", "card_4", "card_5", "card_6"]
+    },
+    "gc_categories": {
+      "type": "section-gc-categories",
+      "settings": {
+        "eyebrow": "Browse by Occasion",
+        "title": "Find the Perfect Card",
+        "subtitle": "Every occasion deserves something beautiful"
+      },
+      "blocks": {
+        "cat_1": { "type": "category", "settings": { "emoji": "🎂", "name": "Birthday", "count": "24", "bg_color": "#2d1b4e" } },
+        "cat_2": { "type": "category", "settings": { "emoji": "🙏", "name": "Thank You", "count": "18", "bg_color": "#1a2e2e" } },
+        "cat_3": { "type": "category", "settings": { "emoji": "🎉", "name": "Congratulations", "count": "15", "bg_color": "#2e1a1a" } },
+        "cat_4": { "type": "category", "settings": { "emoji": "💑", "name": "Anniversary", "count": "12", "bg_color": "#1a1a4e" } },
+        "cat_5": { "type": "category", "settings": { "emoji": "💝", "name": "Just Because", "count": "20", "bg_color": "#2e1a2e" } },
+        "cat_6": { "type": "category", "settings": { "emoji": "🎄", "name": "Holiday", "count": "30", "bg_color": "#1a2e1a" } }
+      },
+      "block_order": ["cat_1", "cat_2", "cat_3", "cat_4", "cat_5", "cat_6"]
+    },
+    "gc_how_it_works": {
+      "type": "section-gc-how-it-works",
+      "settings": {
+        "eyebrow": "The Process",
+        "title": "Simple as 1, 2, 3",
+        "subtitle": "From choosing to sending in under 2 minutes"
+      },
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Choose Your Card",
+            "description": "Browse hundreds of premium animated cards for every occasion. Filter by category, mood, or style."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Add Your Message",
+            "description": "Personalize with a heartfelt note. Your words are woven beautifully into the animation."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "Send & Share",
+            "description": "Send via email, text, or a unique link. They'll see it instantly on any device — no app needed."
+          }
+        }
+      },
+      "block_order": ["step_1", "step_2", "step_3"]
+    },
+    "gc_customize": {
+      "type": "section-gc-customize",
+      "settings": {
+        "eyebrow": "Make It Personal",
+        "title": "Personalize Your Card",
+        "default_video_url": "https://www.w3schools.com/html/mov_bbb.mp4",
+        "show_occasion": true
+      },
+      "blocks": {
+        "opt_1": { "type": "card_option", "settings": { "label": "Birthday", "video_url": "https://www.w3schools.com/html/mov_bbb.mp4" } },
+        "opt_2": { "type": "card_option", "settings": { "label": "Thank You", "video_url": "https://www.w3schools.com/html/mov_bbb.mp4" } },
+        "opt_3": { "type": "card_option", "settings": { "label": "Congrats", "video_url": "https://www.w3schools.com/html/mov_bbb.mp4" } },
+        "opt_4": { "type": "card_option", "settings": { "label": "Anniversary", "video_url": "https://www.w3schools.com/html/mov_bbb.mp4" } }
+      },
+      "block_order": ["opt_1", "opt_2", "opt_3", "opt_4"]
+    },
+    "gc_preview": {
+      "type": "section-gc-preview",
+      "settings": {
+        "eyebrow": "Recipient's View",
+        "title": "This Is What They'll See",
+        "subtitle": "Beautiful on every device, no app required",
+        "video_url": "https://www.w3schools.com/html/mov_bbb.mp4",
+        "share_note": "Link expires after 90 days. Recipient can replay anytime."
+      }
+    },
+    "gc_pricing": {
+      "type": "section-gc-pricing",
+      "settings": {
+        "eyebrow": "Transparent Pricing",
+        "title": "Simple Pricing",
+        "subtitle": "Start free, upgrade when you're ready",
+        "note": "All plans include unlimited replays for recipients. Cancel anytime."
+      },
+      "blocks": {
+        "plan_1": {
+          "type": "plan",
+          "settings": {
+            "plan_name": "Free",
+            "tagline": "Try it with no commitment",
+            "price_monthly": "0",
+            "price_yearly": "0",
+            "cta_label": "Start for Free",
+            "highlighted": false,
+            "features": "1:3 cards per month|1:12 basic templates|1:Shareable link|0:Remove watermark|0:Priority delivery|0:Custom branding"
+          }
+        },
+        "plan_2": {
+          "type": "plan",
+          "settings": {
+            "plan_name": "Pro",
+            "tagline": "For regular senders",
+            "price_monthly": "9.99",
+            "price_yearly": "7.99",
+            "yearly_note": "Billed $95.88/year",
+            "cta_label": "Start Pro Trial",
+            "highlighted": true,
+            "features": "1:Unlimited cards|1:All 200+ templates|1:Remove watermark|1:Priority delivery|1:Scheduled sending|0:Custom branding"
+          }
+        },
+        "plan_3": {
+          "type": "plan",
+          "settings": {
+            "plan_name": "Business",
+            "tagline": "For teams & brands",
+            "price_monthly": "29.99",
+            "price_yearly": "23.99",
+            "yearly_note": "Billed $287.88/year",
+            "cta_label": "Contact Sales",
+            "highlighted": false,
+            "features": "1:Everything in Pro|1:Custom branding|1:Team access (5 seats)|1:Analytics dashboard|1:API access|1:Dedicated support"
+          }
+        }
+      },
+      "block_order": ["plan_1", "plan_2", "plan_3"]
+    },
+    "gc_testimonials": {
+      "type": "section-gc-testimonials",
+      "settings": {
+        "eyebrow": "Loved by Thousands",
+        "title": "People Love Sending Cards"
+      },
+      "blocks": {
+        "t_1": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "I sent an animated birthday card to my mom and she cried happy tears. More personal than any physical card I've ever sent.",
+            "name": "Emily R.",
+            "title": "Pro Plan Member",
+            "avatar_color": "#e94560"
+          }
+        },
+        "t_2": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "We use this for our entire team's work anniversaries. Clients and employees absolutely love receiving them.",
+            "name": "Marcus T.",
+            "title": "Business Plan · HR Director",
+            "avatar_color": "#1a1a2e"
+          }
+        },
+        "t_3": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "Forgot my best friend's birthday until an hour before midnight. Sent one of these in 2 minutes and she thought I planned it all week.",
+            "name": "Priya K.",
+            "title": "Free Plan Member",
+            "avatar_color": "#7c3aed"
+          }
+        }
+      },
+      "block_order": ["t_1", "t_2", "t_3"]
+    },
+    "gc_final_cta": {
+      "type": "section-gc-final-cta",
+      "settings": {
+        "icon": "✉️",
+        "headline": "Ready to Send Your First Card?",
+        "subtext": "It takes less than 2 minutes. No credit card required.",
+        "cta_label": "Get Started Free",
+        "secondary_label": "Browse Cards",
+        "note": "No credit card required · Free plan available forever · Cancel anytime"
+      }
+    },
+    "gc_faq": {
+      "type": "section-gc-faq",
+      "settings": {
+        "eyebrow": "FAQ",
+        "title": "Questions? We've Got Answers",
+        "subtitle": "Everything you need to know about animated greeting cards",
+        "show_contact": true
+      },
+      "blocks": {
+        "faq_1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How do I send a card?",
+            "answer": "<p>Choose any card from our library, add your personal message, then share the unique link via email, text, or any messaging app. Recipients can view it instantly on any device — no app download required.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can recipients reply to my card?",
+            "answer": "<p>Yes! Recipients can send a short reply message directly from the card page. You'll receive it via email. This feature is available on Pro and Business plans.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What if they don't receive the email?",
+            "answer": "<p>Every card comes with a unique shareable link that never expires during the 90-day replay window. You can copy and re-send this link via any channel. You'll also see delivery confirmation in your dashboard.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I schedule cards to be sent later?",
+            "answer": "<p>Absolutely. With Pro and Business plans, you can schedule cards up to 12 months in advance. Perfect for remembering birthdays and anniversaries automatically.</p>"
+          }
+        },
+        "faq_5": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you have cards for business use?",
+            "answer": "<p>Yes — our Business plan includes custom branding, team access for up to 5 seats, analytics, and API access for automated sending.</p>"
+          }
+        },
+        "faq_6": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is there a free option?",
+            "answer": "<p>Yes! Our free plan lets you send up to 3 animated cards per month with access to 12 basic templates. No credit card required to sign up.</p>"
+          }
+        }
+      },
+      "block_order": ["faq_1", "faq_2", "faq_3", "faq_4", "faq_5", "faq_6"]
+    }
+  },
+  "order": [
+    "gc_hero",
+    "gc_card_slider",
+    "gc_categories",
+    "gc_how_it_works",
+    "gc_customize",
+    "gc_preview",
+    "gc_pricing",
+    "gc_testimonials",
+    "gc_final_cta",
+    "gc_faq"
+  ]
+}
