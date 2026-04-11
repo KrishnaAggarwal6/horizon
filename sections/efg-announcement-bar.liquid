@@ -1,0 +1,151 @@
+<div id="efg-announcement-bar-{{ section.id }}" class="efg-announcement-bar">
+  <div class="efg-announcement-bar__track">
+    <div class="efg-announcement-bar__inner">
+      {% for block in section.blocks %}
+        <span class="efg-announcement-bar__item" {{ block.shopify_attributes }}>
+          <span class="efg-announcement-bar__icon" aria-hidden="true">{{ block.settings.icon }}</span>
+          <span class="efg-announcement-bar__text">{{ block.settings.text }}</span>
+        </span>
+        <span class="efg-announcement-bar__divider" aria-hidden="true">·</span>
+      {% endfor %}
+    </div>
+    <div class="efg-announcement-bar__inner" aria-hidden="true">
+      {% for block in section.blocks %}
+        <span class="efg-announcement-bar__item">
+          <span class="efg-announcement-bar__icon">{{ block.settings.icon }}</span>
+          <span class="efg-announcement-bar__text">{{ block.settings.text }}</span>
+        </span>
+        <span class="efg-announcement-bar__divider">·</span>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .efg-announcement-bar {
+    background-color: var(--efg-navy, #1a1a6e);
+    overflow: hidden;
+    width: 100%;
+    padding: 10px 0;
+  }
+
+  .efg-announcement-bar__track {
+    display: flex;
+    width: fit-content;
+    animation: efg-ticker 30s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .efg-announcement-bar__track {
+      animation: none;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  }
+
+  .efg-announcement-bar__inner {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .efg-announcement-bar__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 24px;
+    font-family: var(--font-body--family, 'Montserrat', sans-serif);
+    font-size: 13px;
+    font-weight: 500;
+    color: #ffffff;
+    letter-spacing: 0.3px;
+  }
+
+  .efg-announcement-bar__icon {
+    font-size: 15px;
+    line-height: 1;
+  }
+
+  .efg-announcement-bar__divider {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  @keyframes efg-ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "EFG – Announcement Bar",
+  "tag": "section",
+  "class": "efg-section",
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Announcement Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon (emoji)",
+          "default": "🚚"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Free Worldwide Shipping"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "EFG – Announcement Bar",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "icon": "🚚",
+            "text": "Free Worldwide Shipping"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "🔄",
+            "text": "30-Day Money Back"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "🔒",
+            "text": "100% Secure Checkout"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "⭐",
+            "text": "5,000+ Happy Customers"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "💪",
+            "text": "Premium Quality Gear"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

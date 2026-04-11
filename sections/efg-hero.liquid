@@ -1,0 +1,338 @@
+<div id="efg-hero-{{ section.id }}" class="efg-hero">
+  <div class="efg-hero__bg"></div>
+
+  <div class="efg-hero__container">
+    <!-- Left Content -->
+    <div class="efg-hero__content">
+      <div class="efg-hero__badge">
+        <span class="efg-hero__badge-icon">✦</span>
+        <span>{{ section.settings.badge_text }}</span>
+      </div>
+
+      <h1 class="efg-hero__headline">
+        <span class="efg-hero__headline-white">{{ section.settings.headline_line1 }}</span>
+        <span class="efg-hero__headline-blue">{{ section.settings.headline_line2 }}</span>
+      </h1>
+
+      <p class="efg-hero__subtext">{{ section.settings.subtext }}</p>
+
+      <div class="efg-hero__ctas">
+        <a href="{{ section.settings.primary_cta_url }}" class="efg-hero__btn-primary">
+          {{ section.settings.primary_cta_label }}
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M2.917 7h8.166M7 2.917L11.083 7 7 11.083" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="{{ section.settings.secondary_cta_url }}" class="efg-hero__btn-secondary">
+          {{ section.settings.secondary_cta_label }}
+        </a>
+      </div>
+
+      <div class="efg-hero__trust">
+        <span>⭐ {{ section.settings.trust_1 }}</span>
+        <span>🚚 {{ section.settings.trust_2 }}</span>
+        <span>🔒 {{ section.settings.trust_3 }}</span>
+      </div>
+    </div>
+
+    <!-- Right Image -->
+    <div class="efg-hero__media">
+      {% if section.settings.hero_image != blank %}
+        <div class="efg-hero__image-wrapper">
+          {{ section.settings.hero_image | image_url: width: 900 | image_tag: loading: 'eager', fetchpriority: 'high', alt: section.settings.hero_image.alt | default: section.settings.headline_line1 }}
+        </div>
+      {% else %}
+        <div class="efg-hero__image-placeholder">
+          {{ 'image' | placeholder_svg_tag: 'efg-hero__placeholder-svg' }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .efg-hero {
+    position: relative;
+    background: linear-gradient(135deg, #070720 0%, #1a1a6e 40%, #0e0e38 70%, #070720 100%);
+    overflow: hidden;
+    min-height: 520px;
+  }
+
+  .efg-hero__bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(50% 60% at 65% 50%, rgba(74, 138, 255, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .efg-hero__container {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .efg-hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .efg-hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(74, 138, 255, 0.12);
+    border: 1px solid rgba(74, 138, 255, 0.25);
+    border-radius: 24px;
+    padding: 6px 16px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    color: #7aabff;
+    text-transform: uppercase;
+    width: fit-content;
+  }
+
+  .efg-hero__badge-icon {
+    font-size: 10px;
+  }
+
+  .efg-hero__headline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 0;
+    font-size: clamp(36px, 4vw, 52px);
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .efg-hero__headline-white {
+    color: #ffffff;
+  }
+
+  .efg-hero__headline-blue {
+    color: #4a8aff;
+  }
+
+  .efg-hero__subtext {
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0;
+    max-width: 480px;
+  }
+
+  .efg-hero__ctas {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .efg-hero__btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #ffffff;
+    color: #1a1a6e;
+    border-radius: 30px;
+    padding: 15px 28px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    box-shadow: 0 0 24px rgba(255, 255, 255, 0.15);
+    transition: background 0.2s, box-shadow 0.2s;
+  }
+
+  .efg-hero__btn-primary:hover {
+    background: #e8ecff;
+    box-shadow: 0 0 32px rgba(255, 255, 255, 0.25);
+  }
+
+  .efg-hero__btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    padding: 15px 28px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .efg-hero__btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .efg-hero__trust {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  .efg-hero__media {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .efg-hero__image-wrapper {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 480px;
+  }
+
+  .efg-hero__image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .efg-hero__image-placeholder {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 480px;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .efg-hero__placeholder-svg {
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+  }
+
+  @media (max-width: 768px) {
+    .efg-hero__container {
+      grid-template-columns: 1fr;
+      padding: 60px 20px;
+      gap: 32px;
+    }
+
+    .efg-hero__media {
+      order: -1;
+    }
+
+    .efg-hero__image-wrapper,
+    .efg-hero__image-placeholder {
+      max-width: 100%;
+      aspect-ratio: 4/3;
+    }
+
+    .efg-hero__trust {
+      gap: 12px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "EFG – Hero Banner",
+  "tag": "section",
+  "class": "efg-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "PREMIUM HOME FITNESS"
+    },
+    {
+      "type": "text",
+      "id": "headline_line1",
+      "label": "Headline Line 1 (white)",
+      "default": "Stop Paying for the Gym."
+    },
+    {
+      "type": "text",
+      "id": "headline_line2",
+      "label": "Headline Line 2 (blue)",
+      "default": "Build Yours at Home."
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Train anytime. Save money. Get real results — without commuting, waiting, or wasting time."
+    },
+    {
+      "type": "text",
+      "id": "primary_cta_label",
+      "label": "Primary Button Label",
+      "default": "Build My Home Gym"
+    },
+    {
+      "type": "url",
+      "id": "primary_cta_url",
+      "label": "Primary Button URL"
+    },
+    {
+      "type": "text",
+      "id": "secondary_cta_label",
+      "label": "Secondary Button Label",
+      "default": "See How It Works"
+    },
+    {
+      "type": "url",
+      "id": "secondary_cta_url",
+      "label": "Secondary Button URL"
+    },
+    {
+      "type": "text",
+      "id": "trust_1",
+      "label": "Trust Badge 1",
+      "default": "4.9/5 from 5,000+ Customers"
+    },
+    {
+      "type": "text",
+      "id": "trust_2",
+      "label": "Trust Badge 2",
+      "default": "Free Shipping Over $50"
+    },
+    {
+      "type": "text",
+      "id": "trust_3",
+      "label": "Trust Badge 3",
+      "default": "Secure Checkout"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "EFG – Hero Banner"
+    }
+  ]
+}
+{% endschema %}
