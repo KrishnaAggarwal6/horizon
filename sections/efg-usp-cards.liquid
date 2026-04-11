@@ -1,0 +1,161 @@
+<div id="efg-usp-{{ section.id }}" class="efg-usp">
+  <div class="efg-usp__container">
+    {% for block in section.blocks %}
+      <div class="efg-usp__card" {{ block.shopify_attributes }}>
+        <div class="efg-usp__icon-wrap">
+          <span class="efg-usp__icon">{{ block.settings.icon }}</span>
+        </div>
+        <div class="efg-usp__body">
+          <p class="efg-usp__title">{{ block.settings.title }}</p>
+          <p class="efg-usp__desc">{{ block.settings.description }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% stylesheet %}
+  .efg-usp {
+    background: #f4f4f6;
+    padding: 40px 24px;
+  }
+
+  .efg-usp__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .efg-usp__card {
+    background: #ffffff;
+    border: 1px solid #e4e4ea;
+    border-radius: 16px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    transition: box-shadow 0.2s;
+  }
+
+  .efg-usp__card:hover {
+    box-shadow: 0 4px 20px rgba(26, 26, 110, 0.08);
+  }
+
+  .efg-usp__icon-wrap {
+    background: #f4f4f6;
+    border-radius: 14px;
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .efg-usp__icon {
+    font-size: 24px;
+    line-height: 1;
+  }
+
+  .efg-usp__body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .efg-usp__title {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 600;
+    color: #1a1a6e;
+    line-height: 1.3;
+  }
+
+  .efg-usp__desc {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+    color: #8888a8;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    .efg-usp__container {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .efg-usp__container {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "EFG – USP Cards",
+  "tag": "section",
+  "class": "efg-section",
+  "blocks": [
+    {
+      "type": "card",
+      "name": "USP Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon (emoji)",
+          "default": "💪"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Replace the Gym"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "No machines. Same results."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "EFG – USP Cards",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "icon": "💪",
+            "title": "Replace the Gym",
+            "description": "No machines. Same results."
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "icon": "🌍",
+            "title": "Train Anywhere",
+            "description": "Home, travel, outdoors."
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "icon": "⚡",
+            "title": "See Results Faster",
+            "description": "Full-body workouts in minutes."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

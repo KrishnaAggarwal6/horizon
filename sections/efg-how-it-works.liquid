@@ -1,0 +1,192 @@
+<div id="efg-how-{{ section.id }}" class="efg-how">
+  <div class="efg-how__container">
+    <div class="efg-how__header">
+      <p class="efg-how__eyebrow">HOW IT WORKS</p>
+      <h2 class="efg-how__title">{{ section.settings.title }}</h2>
+    </div>
+
+    <div class="efg-how__steps">
+      {% for block in section.blocks %}
+        <div class="efg-how__step" {{ block.shopify_attributes }}>
+          <div class="efg-how__step-number">
+            <span>{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+          </div>
+          <p class="efg-how__step-title">{{ block.settings.title }}</p>
+          <p class="efg-how__step-desc">{{ block.settings.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .efg-how {
+    background: #ffffff;
+    padding: 72px 24px;
+  }
+
+  .efg-how__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .efg-how__header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .efg-how__eyebrow {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: #4a8aff;
+    text-transform: uppercase;
+  }
+
+  .efg-how__title {
+    margin: 0;
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 600;
+    color: #1a1a6e;
+    line-height: 1.2;
+  }
+
+  .efg-how__steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%;
+  }
+
+  .efg-how__step {
+    background: #f4f4f6;
+    border: 1px solid #e4e4ea;
+    border-radius: 20px;
+    padding: 40px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+    transition: box-shadow 0.2s;
+  }
+
+  .efg-how__step:hover {
+    box-shadow: 0 6px 24px rgba(26, 26, 110, 0.1);
+  }
+
+  .efg-how__step-number {
+    background: #1a1a6e;
+    border-radius: 16px;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .efg-how__step-number span {
+    font-size: 18px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1;
+  }
+
+  .efg-how__step-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #1a1a6e;
+  }
+
+  .efg-how__step-desc {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 400;
+    color: #8888a8;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .efg-how {
+      padding: 48px 20px;
+    }
+
+    .efg-how__steps {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "EFG – How It Works",
+  "tag": "section",
+  "class": "efg-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "A Smarter Way to Train"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Step Title",
+          "default": "Build Your Setup"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Step Description",
+          "default": "Everything you need in one compact system. No machines required."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "EFG – How It Works",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "title": "Build Your Setup",
+            "description": "Everything you need in one compact system. No machines required."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Train Anywhere",
+            "description": "No gym. No commute. No limits. Home, travel, outdoors — your choice."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "See Real Results",
+            "description": "Burn fat. Build muscle. Stay consistent. Full-body workouts in minutes."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

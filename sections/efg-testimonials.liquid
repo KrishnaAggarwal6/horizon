@@ -1,0 +1,351 @@
+<div id="efg-testimonials-{{ section.id }}" class="efg-testimonials">
+  <div class="efg-testimonials__container">
+    <div class="efg-testimonials__header">
+      <p class="efg-testimonials__eyebrow">CUSTOMER REVIEWS</p>
+      <h2 class="efg-testimonials__title">{{ section.settings.title }}</h2>
+    </div>
+
+    <div class="efg-testimonials__slider-wrap">
+      <div class="efg-testimonials__track" id="efg-testimonials-track-{{ section.id }}">
+        {% for block in section.blocks %}
+          <div class="efg-testimonials__card" {{ block.shopify_attributes }}>
+            <div class="efg-testimonials__stars" aria-label="{{ block.settings.rating }} out of 5 stars">
+              {% for i in (1..5) %}
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M8 1.333l1.8 3.654 4.033.587-2.917 2.84.688 4.013L8 10.347l-3.604 1.88.688-4.013-2.917-2.84 4.033-.587L8 1.333z" fill="{% if forloop.index <= block.settings.rating %}#f5a623{% else %}#e4e4ea{% endif %}"/>
+                </svg>
+              {% endfor %}
+            </div>
+            <blockquote class="efg-testimonials__quote">
+              <p>"{{ block.settings.quote }}"</p>
+            </blockquote>
+            <div class="efg-testimonials__footer">
+              <div class="efg-testimonials__avatar" style="background: {{ block.settings.avatar_color }};">
+                {{ block.settings.name | split: ' ' | map: 'first' | join: '' | slice: 0 }}{{ block.settings.name | split: ' ' | last | slice: 0 }}
+              </div>
+              <div class="efg-testimonials__meta">
+                <p class="efg-testimonials__name">{{ block.settings.name }}</p>
+                <div class="efg-testimonials__verified">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M10 3L4.5 8.5 2 6" stroke="#4A8AFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span>Verified Buyer</span>
+                </div>
+              </div>
+              <span class="efg-testimonials__date">{{ block.settings.date }}</span>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if section.blocks.size > 3 %}
+        <button class="efg-testimonials__arrow efg-testimonials__arrow--prev" aria-label="Previous reviews" onclick="efgTestimonialsSlide('{{ section.id }}', -1)">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12.5 15l-5-5 5-5" stroke="#1a1a6e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button class="efg-testimonials__arrow efg-testimonials__arrow--next" aria-label="Next reviews" onclick="efgTestimonialsSlide('{{ section.id }}', 1)">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M7.5 5l5 5-5 5" stroke="#1a1a6e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var efgSlides = {};
+
+  function efgGetCols() {
+    if (window.innerWidth < 640) return 1;
+    if (window.innerWidth < 1024) return 2;
+    return 3;
+  }
+
+  window.efgTestimonialsSlide = function(id, dir) {
+    var track = document.getElementById('efg-testimonials-track-' + id);
+    if (!track) return;
+    var cards = track.querySelectorAll('.efg-testimonials__card');
+    if (!cards.length) return;
+    efgSlides[id] = efgSlides[id] || 0;
+    var cols = efgGetCols();
+    var max = Math.max(0, cards.length - cols);
+    efgSlides[id] = Math.min(max, Math.max(0, efgSlides[id] + dir));
+    var cardWidth = cards[0].offsetWidth + 20;
+    track.style.transform = 'translateX(-' + (efgSlides[id] * cardWidth) + 'px)';
+  };
+})();
+</script>
+
+{% stylesheet %}
+  .efg-testimonials {
+    background: #ffffff;
+    padding: 72px 24px;
+  }
+
+  .efg-testimonials__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .efg-testimonials__header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .efg-testimonials__eyebrow {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: #4a8aff;
+    text-transform: uppercase;
+  }
+
+  .efg-testimonials__title {
+    margin: 0;
+    font-size: clamp(24px, 3vw, 38px);
+    font-weight: 600;
+    color: #1a1a6e;
+    line-height: 1.2;
+    max-width: 800px;
+  }
+
+  .efg-testimonials__slider-wrap {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .efg-testimonials__track {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    transition: transform 0.35s ease;
+  }
+
+  .efg-testimonials__card {
+    background: #f8f8fa;
+    border: 1px solid #e4e4ea;
+    border-radius: 16px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .efg-testimonials__stars {
+    display: flex;
+    gap: 3px;
+  }
+
+  .efg-testimonials__quote {
+    margin: 0;
+    flex: 1;
+  }
+
+  .efg-testimonials__quote p {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a6e;
+    line-height: 1.7;
+  }
+
+  .efg-testimonials__footer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 16px;
+    border-top: 1px solid #e4e4ea;
+  }
+
+  .efg-testimonials__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: #ffffff;
+    flex-shrink: 0;
+  }
+
+  .efg-testimonials__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+  }
+
+  .efg-testimonials__name {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a6e;
+  }
+
+  .efg-testimonials__verified {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #4a8aff;
+  }
+
+  .efg-testimonials__date {
+    font-size: 12px;
+    color: #9999b8;
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+
+  .efg-testimonials__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #ffffff;
+    border: 1px solid #e4e4ea;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: box-shadow 0.2s;
+  }
+
+  .efg-testimonials__arrow:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  }
+
+  .efg-testimonials__arrow--prev { left: -22px; }
+  .efg-testimonials__arrow--next { right: -22px; }
+
+  @media (max-width: 1024px) {
+    .efg-testimonials__track {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .efg-testimonials {
+      padding: 48px 20px;
+    }
+
+    .efg-testimonials__track {
+      grid-template-columns: 1fr;
+    }
+
+    .efg-testimonials__arrow {
+      display: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "EFG – Testimonials",
+  "tag": "section",
+  "class": "efg-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "People Are Canceling Their Gym Memberships After This"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Star Rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Review Quote",
+          "default": "I canceled my gym membership after buying the resistance band set. Best fitness purchase I've ever made."
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Reviewer Name",
+          "default": "Mike R."
+        },
+        {
+          "type": "color",
+          "id": "avatar_color",
+          "label": "Avatar Background Color",
+          "default": "#1a1a6e"
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Review Date",
+          "default": "March 2025"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "EFG – Testimonials",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "quote": "I canceled my gym membership after buying the resistance band set. Best fitness purchase I've ever made.",
+            "name": "Mike R.",
+            "avatar_color": "#1a1a6e",
+            "date": "March 2025"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "quote": "Replaced my entire gym setup. Fast shipping, everything arrived perfectly packaged. Couldn't be happier.",
+            "name": "Sarah L.",
+            "avatar_color": "#2d6a4f",
+            "date": "Feb 2025"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "quote": "The push-up board is a total game changer. Way more targeted than regular push-ups. Premium build quality.",
+            "name": "James T.",
+            "avatar_color": "#7c3aed",
+            "date": "Jan 2025"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

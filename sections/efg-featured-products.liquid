@@ -1,0 +1,453 @@
+{% assign collection = collections[section.settings.collection] %}
+
+<div id="efg-products-{{ section.id }}" class="efg-products">
+  <div class="efg-products__container">
+
+    <div class="efg-products__header">
+      <div class="efg-products__header-left">
+        <p class="efg-products__eyebrow">MOST POPULAR</p>
+        <h2 class="efg-products__title">
+          <span class="efg-products__title-main">{{ section.settings.title_prefix }}</span>
+          <span class="efg-products__title-accent">{{ section.settings.title_accent }}</span>
+        </h2>
+      </div>
+
+      {% if section.settings.show_tabs %}
+        <div class="efg-products__tabs" role="tablist" aria-label="Product categories">
+          {% assign tab_labels = section.settings.tab_labels | split: ',' %}
+          {% for tab in tab_labels %}
+            <button
+              class="efg-products__tab{% if forloop.first %} is-active{% endif %}"
+              role="tab"
+              data-tab="{{ forloop.index }}"
+              aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+            >{{ tab | strip }}</button>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="efg-products__grid">
+      {% if collection != blank and collection.products.size > 0 %}
+        {% assign products_to_show = collection.products | limit: section.settings.products_count %}
+        {% for product in products_to_show %}
+          <div class="efg-products__card">
+            <a href="{{ product.url }}" class="efg-products__image-link" aria-label="{{ product.title }}">
+              <div class="efg-products__image-wrap">
+                {% if product.featured_image != blank %}
+                  {{ product.featured_image | image_url: width: 500 | image_tag: loading: 'lazy', alt: product.featured_image.alt | default: product.title, class: 'efg-products__image' }}
+                {% else %}
+                  {{ 'product-1' | placeholder_svg_tag: 'efg-products__placeholder' }}
+                {% endif %}
+                {% if product.compare_at_price > product.price %}
+                  {% assign discount = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
+                  <span class="efg-products__badge efg-products__badge--sale">-{{ discount }}% OFF</span>
+                {% elsif product.tags contains 'best-seller' %}
+                  <span class="efg-products__badge efg-products__badge--bestseller">🔥 Best Seller</span>
+                {% elsif product.tags contains 'sells-out' %}
+                  <span class="efg-products__badge efg-products__badge--hot">⚡ Sells Out Weekly</span>
+                {% endif %}
+              </div>
+            </a>
+            <div class="efg-products__info">
+              <a href="{{ product.url }}" class="efg-products__name">{{ product.title }}</a>
+              <p class="efg-products__tagline">{{ product.metafields.custom.tagline | default: product.description | strip_html | truncate: 60 }}</p>
+              <p class="efg-products__social-proof">Used by 5,000+ customers</p>
+              <div class="efg-products__price-row">
+                {% if product.compare_at_price > product.price %}
+                  <span class="efg-products__compare-price">{{ product.compare_at_price | money }}</span>
+                {% endif %}
+                <span class="efg-products__price">{{ product.price | money }}</span>
+              </div>
+              <button
+                class="efg-products__add-btn"
+                data-product-id="{{ product.variants.first.id }}"
+                onclick="efgAddToCart({{ product.variants.first.id }}, this)"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        {% for i in (1..4) %}
+          <div class="efg-products__card">
+            <div class="efg-products__image-wrap">
+              {{ 'product-' | append: i | placeholder_svg_tag: 'efg-products__placeholder' }}
+              <span class="efg-products__badge efg-products__badge--bestseller">🔥 Best Seller</span>
+            </div>
+            <div class="efg-products__info">
+              <p class="efg-products__name">Sample Product {{ i }}</p>
+              <p class="efg-products__tagline">A great product for your home gym setup</p>
+              <p class="efg-products__social-proof">Used by 5,000+ customers</p>
+              <div class="efg-products__price-row">
+                <span class="efg-products__compare-price">$99.99</span>
+                <span class="efg-products__price">$69.99</span>
+              </div>
+              <button class="efg-products__add-btn">Add to Cart</button>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    <div class="efg-products__footer">
+      <a href="{{ section.settings.view_all_url | default: '/collections/all' }}" class="efg-products__view-all">
+        VIEW ALL PRODUCTS →
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+function efgAddToCart(variantId, btn) {
+  btn.disabled = true;
+  btn.textContent = 'Adding...';
+  fetch('/cart/add.js', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id: variantId, quantity: 1 })
+  })
+  .then(r => r.json())
+  .then(() => {
+    btn.textContent = 'Added!';
+    document.dispatchEvent(new CustomEvent('cart:refresh'));
+    setTimeout(() => { btn.textContent = 'Add to Cart'; btn.disabled = false; }, 2000);
+  })
+  .catch(() => { btn.textContent = 'Add to Cart'; btn.disabled = false; });
+}
+</script>
+
+{% stylesheet %}
+  .efg-products {
+    background: #f4f4f6;
+    padding: 72px 24px;
+  }
+
+  .efg-products__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .efg-products__header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .efg-products__header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .efg-products__eyebrow {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: #4a8aff;
+    text-transform: uppercase;
+  }
+
+  .efg-products__title {
+    margin: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .efg-products__title-main {
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 600;
+    color: #1a1a6e;
+  }
+
+  .efg-products__title-accent {
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 600;
+    color: #4a8aff;
+  }
+
+  .efg-products__tabs {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .efg-products__tab {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #9999b8;
+    padding: 0;
+    transition: color 0.2s;
+  }
+
+  .efg-products__tab.is-active {
+    color: #1a1a6e;
+  }
+
+  .efg-products__tab:hover {
+    color: #1a1a6e;
+  }
+
+  .efg-products__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .efg-products__card {
+    background: #ffffff;
+    border: 1px solid #e4e4ea;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+
+  .efg-products__card:hover {
+    box-shadow: 0 8px 32px rgba(26, 26, 110, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .efg-products__image-link {
+    display: block;
+    text-decoration: none;
+  }
+
+  .efg-products__image-wrap {
+    position: relative;
+    background: #eaeaf0;
+    aspect-ratio: 1;
+    overflow: hidden;
+  }
+
+  .efg-products__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s;
+  }
+
+  .efg-products__card:hover .efg-products__image {
+    transform: scale(1.03);
+  }
+
+  .efg-products__placeholder {
+    width: 100%;
+    height: 100%;
+  }
+
+  .efg-products__badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+  }
+
+  .efg-products__badge--sale { background: #c4392a; }
+  .efg-products__badge--bestseller { background: #1a1a6e; }
+  .efg-products__badge--hot { background: #2d8a4e; }
+
+  .efg-products__info {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+  }
+
+  .efg-products__name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a6e;
+    text-decoration: none;
+    line-height: 1.3;
+  }
+
+  .efg-products__name:hover {
+    color: #4a8aff;
+  }
+
+  .efg-products__tagline {
+    margin: 0;
+    font-size: 14px;
+    color: #8888a8;
+    line-height: 1.4;
+  }
+
+  .efg-products__social-proof {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 600;
+    color: #4a8aff;
+  }
+
+  .efg-products__price-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 2px;
+  }
+
+  .efg-products__compare-price {
+    font-size: 13px;
+    font-weight: 400;
+    color: #cc4444;
+    text-decoration: line-through;
+  }
+
+  .efg-products__price {
+    font-size: 17px;
+    font-weight: 600;
+    color: #1a1a6e;
+  }
+
+  .efg-products__add-btn {
+    margin-top: auto;
+    width: 100%;
+    background: #1a1a6e;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    padding: 11px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 12px;
+  }
+
+  .efg-products__add-btn:hover:not(:disabled) {
+    background: #2a2a8e;
+  }
+
+  .efg-products__add-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .efg-products__footer {
+    display: flex;
+    justify-content: center;
+  }
+
+  .efg-products__view-all {
+    display: inline-flex;
+    align-items: center;
+    background: #1a1a6e;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 30px;
+    padding: 14px 36px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: background 0.2s;
+  }
+
+  .efg-products__view-all:hover {
+    background: #2a2a8e;
+  }
+
+  @media (max-width: 1024px) {
+    .efg-products__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .efg-products {
+      padding: 48px 16px;
+    }
+
+    .efg-products__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .efg-products__header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "EFG – Featured Products",
+  "tag": "section",
+  "class": "efg-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title_prefix",
+      "label": "Title (main)",
+      "default": "🔥 Most Popular"
+    },
+    {
+      "type": "text",
+      "id": "title_accent",
+      "label": "Title (accent color)",
+      "default": "Right Now"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_count",
+      "label": "Number of products",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tabs",
+      "label": "Show category tabs",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "tab_labels",
+      "label": "Tab labels (comma-separated)",
+      "default": "All, Bands, Boards, Recovery"
+    },
+    {
+      "type": "url",
+      "id": "view_all_url",
+      "label": "View All link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "EFG – Featured Products"
+    }
+  ]
+}
+{% endschema %}

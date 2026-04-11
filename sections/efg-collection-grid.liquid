@@ -1,0 +1,234 @@
+<div id="efg-colls-{{ section.id }}" class="efg-colls">
+  <div class="efg-colls__container">
+    <div class="efg-colls__header">
+      <p class="efg-colls__eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="efg-colls__title">{{ section.settings.title }}</h2>
+    </div>
+
+    <div class="efg-colls__grid">
+      {% for block in section.blocks %}
+        <a
+          href="{{ block.settings.url | default: '/collections/all' }}"
+          class="efg-colls__card"
+          {{ block.shopify_attributes }}
+          aria-label="{{ block.settings.label }}"
+        >
+          {% if block.settings.image != blank %}
+            {{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', alt: block.settings.label, class: 'efg-colls__image' }}
+          {% else %}
+            {{ 'collection-1' | placeholder_svg_tag: 'efg-colls__placeholder' }}
+          {% endif %}
+          <div class="efg-colls__overlay"></div>
+          <div class="efg-colls__label">
+            <span class="efg-colls__label-text">{{ block.settings.label }}</span>
+            <span class="efg-colls__label-arrow" aria-hidden="true">→</span>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .efg-colls {
+    background: #f4f4f6;
+    padding: 72px 24px;
+  }
+
+  .efg-colls__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .efg-colls__header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .efg-colls__eyebrow {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: #4a8aff;
+    text-transform: uppercase;
+  }
+
+  .efg-colls__title {
+    margin: 0;
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 600;
+    color: #1a1a6e;
+  }
+
+  .efg-colls__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .efg-colls__card {
+    position: relative;
+    display: block;
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    text-decoration: none;
+    transition: transform 0.3s;
+  }
+
+  .efg-colls__card:hover {
+    transform: scale(1.02);
+  }
+
+  .efg-colls__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s;
+  }
+
+  .efg-colls__card:hover .efg-colls__image {
+    transform: scale(1.06);
+  }
+
+  .efg-colls__placeholder {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: #d0d0e0;
+  }
+
+  .efg-colls__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(26, 26, 110, 0.75) 0%, rgba(26, 26, 110, 0.1) 50%, transparent 100%);
+  }
+
+  .efg-colls__label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .efg-colls__label-text {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.2;
+  }
+
+  .efg-colls__label-arrow {
+    font-size: 20px;
+    color: #ffffff;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity 0.2s, transform 0.2s;
+  }
+
+  .efg-colls__card:hover .efg-colls__label-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  @media (max-width: 1024px) {
+    .efg-colls__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .efg-colls {
+      padding: 48px 16px;
+    }
+
+    .efg-colls__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "EFG – Collection Grid",
+  "tag": "section",
+  "class": "efg-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "SHOP BY GOAL"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Find Your Training Path"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_card",
+      "name": "Collection Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Background Image"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Strength Training"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "EFG – Collection Grid",
+      "blocks": [
+        {
+          "type": "collection_card",
+          "settings": { "label": "Strength Training" }
+        },
+        {
+          "type": "collection_card",
+          "settings": { "label": "Core & Abs" }
+        },
+        {
+          "type": "collection_card",
+          "settings": { "label": "Recovery" }
+        },
+        {
+          "type": "collection_card",
+          "settings": { "label": "Full Gym Kit" }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
