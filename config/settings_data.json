@@ -84,6 +84,17 @@
         "settings": {
           "hide_dynamic_checkout_buttons_when_fees_apply": false
         }
+      },
+      "12622292715052272319": {
+        "type": "shopify://apps/magical-fees/blocks/magical-mandatory-fees/8c765569-e503-4260-ade8-582a0959d5a2",
+        "disabled": false,
+        "settings": {
+          "fees_required_message": "",
+          "fees_consent_description": "",
+          "hide_dynamic_checkout": false,
+          "force_page_refresh": false,
+          "disable_storefront_fee_application": true
+        }
       }
     },
     "color_schemes": {
