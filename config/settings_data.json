@@ -95,6 +95,13 @@
           "force_page_refresh": false,
           "disable_storefront_fee_application": true
         }
+      },
+      "12797969459062979983": {
+        "type": "shopify://apps/avonix-tariffs-surcharges/blocks/avonix-app-embed/019e2d17-7b78-79ef-9f66-85489e995d09",
+        "disabled": false,
+        "settings": {
+          "hide_dynamic_checkout": false
+        }
       }
     },
     "color_schemes": {
