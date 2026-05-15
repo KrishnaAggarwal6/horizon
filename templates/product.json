@@ -12,6 +12,12 @@
     "main": {
       "type": "product-information",
       "blocks": {
+        "vol_fees_surcharge_chargefee_product_page_wADF8U": {
+          "type": "shopify://apps/vol-fees-surcharge/blocks/chargefee-product-page/019d0602-0ea2-75d0-83cc-ba2fc2c1f16f",
+          "settings": {
+            "fee_id": "__auto__"
+          }
+        },
         "media-gallery": {
           "type": "_product-media-gallery",
           "static": true,
@@ -265,6 +271,9 @@
           ]
         }
       },
+      "block_order": [
+        "vol_fees_surcharge_chargefee_product_page_wADF8U"
+      ],
       "settings": {
         "content_width": "content-center-aligned",
         "desktop_media_position": "left",
