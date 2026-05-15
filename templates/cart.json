@@ -6,11 +6,18 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "cart-section": {
       "type": "main-cart",
       "blocks": {
+        "vol_fees_surcharge_chargefee_cart_page_LHyh6a": {
+          "type": "shopify://apps/vol-fees-surcharge/blocks/chargefee-cart-page/019d0602-0ea2-75d0-83cc-ba2fc2c1f16f",
+          "settings": {
+            "fee_id": "__auto__"
+          }
+        },
         "cart-page-title": {
           "type": "_cart-title",
           "static": true,
@@ -56,6 +63,9 @@
           "blocks": {}
         }
       },
+      "block_order": [
+        "vol_fees_surcharge_chargefee_cart_page_LHyh6a"
+      ],
       "settings": {
         "section_width": "page-width",
         "color_scheme": "",
